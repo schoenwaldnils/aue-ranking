@@ -1,0 +1,6 @@
+.asset-cache
+npm-debug.log
+
+node_modules
+.next
+.env.local
