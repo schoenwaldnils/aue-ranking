@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "next dev -p 3456",
     "start": "next build && next start -p 3456",
-    "prebuild": "npm run generate-contentful-types",
     "build": "next build",
     "test": "npm run lint",
     "lint": "npm run lint:ts && npm run lint:types",

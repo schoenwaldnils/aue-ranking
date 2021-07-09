@@ -1,5 +1,4 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet'
-import creds from '../../aue-ranking-creds.json'
 import { RankingItem } from '../components/RankingItem'
 
 export const getSheet = async () => {
@@ -8,16 +7,11 @@ export const getSheet = async () => {
     '1dhviQAHF92P4_5vp0adUHpI2I2tupNmLsXc66Ckn2lE',
   )
 
-  await doc.useServiceAccountAuth(creds)
+  await doc.useApiKey(process.env.GOOGLE_API_KEY)
 
   await doc.loadInfo()
 
-  console.log(doc.title)
-
   const sheet = doc.sheetsByTitle['Progress']
-
-  console.log(sheet.title)
-  console.log(sheet.rowCount)
 
   await sheet.loadCells('A1:G7')
 
