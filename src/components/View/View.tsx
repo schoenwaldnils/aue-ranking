@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { FC } from 'react'
+
 import { Image } from '../Image'
 import bg from './view-bg.png' // https://unsplash.com/photos/0aWZdK8nK2I
 

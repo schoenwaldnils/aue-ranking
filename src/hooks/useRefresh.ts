@@ -1,16 +1,16 @@
 import { useRouter } from 'next/dist/client/router'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
-export const useRefresh = (ms: number = 5000) => {
+export const useRefresh = (ms = 5000): void => {
   const router = useRouter()
 
-  const refreshData = () => {
+  const refreshData = useCallback(() => {
     // console.log('refreshData')
     router.replace(router.asPath)
-  }
+  }, [router])
 
   useEffect(() => {
     const interval = setInterval(refreshData, ms)
     return () => clearInterval(interval)
-  }, [ms])
+  }, [ms, refreshData])
 }

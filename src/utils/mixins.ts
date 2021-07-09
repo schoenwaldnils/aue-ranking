@@ -1,6 +1,5 @@
 import { css, SerializedStyles } from '@emotion/react'
 
-
 export const stack = (rem = 1): SerializedStyles => css`
   > * + * {
     margin-top: ${rem}rem !important;

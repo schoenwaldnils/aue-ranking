@@ -2,7 +2,7 @@ export const SET_INIT = 'SET_INIT'
 
 type SET_INIT = 'SET_INIT'
 
-export type Store = {}
+export type Store = Record<string, unknown>
 
 export type Action = { type: SET_INIT }
 

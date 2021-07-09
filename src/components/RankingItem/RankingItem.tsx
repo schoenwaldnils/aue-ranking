@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { FC } from 'react'
+
 import { h3Styles } from '../Typography'
 
 const itemHeight = '84px'
@@ -91,7 +92,8 @@ export const RankingItem: FC<RankingItem & { index: number }> = ({
     <>
       <Index highlight={index <= 3}>{index}</Index>
       <Image>
-        <img src={teamLogo} width={64} height={64}></img>
+        {/* eslint-disable-next-line @next/next/no-img-element*/}
+        <img src={teamLogo} width={64} height={64} alt="logo" />
       </Image>
       <Name>{teamName}</Name>
       <Numbers>
@@ -115,10 +117,10 @@ const LegendNumber = styled(LegendText)`
   text-align: center;
 `
 
-export const RankingLegend = () => (
+export const RankingLegend: FC = () => (
   <>
-    <LegendText></LegendText>
-    <LegendText></LegendText>
+    <LegendText />
+    <LegendText />
     <LegendText>Team</LegendText>
     <LegendNumber>Win/Loss</LegendNumber>
     <LegendNumber>Game Record</LegendNumber>

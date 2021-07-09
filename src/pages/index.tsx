@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { NextPage } from 'next'
+
 import { GlasPane } from '../components/GlasPane'
-import { RankingItem } from '../components/RankingItem'
 import { h2Styles, Link } from '../components/Typography'
 import { View } from '../components/View'
 
@@ -9,7 +9,7 @@ const StyledLink = styled(Link)`
   ${h2Styles}
 `
 
-const IndexPage: NextPage<{ data: { teams: RankingItem[] } }> = ({ data }) => {
+const IndexPage: NextPage = () => {
   return (
     <View>
       <GlasPane>

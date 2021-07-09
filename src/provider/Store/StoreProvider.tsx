@@ -1,6 +1,6 @@
-import { FC, useEffect, useReducer, useRef } from 'react'
+import { FC, useReducer } from 'react'
 
-import { reducer, SET_THEME } from './reducer'
+import { reducer } from './reducer'
 import { initialState, StoreContext } from './Store'
 
 export const StoreProvider: FC = ({ children }) => {

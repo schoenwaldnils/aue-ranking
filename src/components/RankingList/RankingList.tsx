@@ -1,51 +1,7 @@
 import styled from '@emotion/styled'
 import { FC } from 'react'
-import { RankingItem, RankingLegend } from '../RankingItem'
 
-const mockData = [
-  {
-    teamName: 'Lorem Ipsum',
-    wins: 5,
-    loses: 3,
-    goalsShot: 10,
-    goalsRecieved: 6,
-  },
-  {
-    teamName: 'Lorem Ipsum',
-    wins: 5,
-    loses: 3,
-    goalsShot: 10,
-    goalsRecieved: 6,
-  },
-  {
-    teamName: 'Lorem Ipsum',
-    wins: 5,
-    loses: 3,
-    goalsShot: 10,
-    goalsRecieved: 6,
-  },
-  {
-    teamName: 'Lorem Ipsum',
-    wins: 5,
-    loses: 3,
-    goalsShot: 10,
-    goalsRecieved: 6,
-  },
-  {
-    teamName: 'Lorem Ipsum',
-    wins: 5,
-    loses: 3,
-    goalsShot: 10,
-    goalsRecieved: 6,
-  },
-  {
-    teamName: 'Lorem Ipsum',
-    wins: 5,
-    loses: 3,
-    goalsShot: 10,
-    goalsRecieved: 6,
-  },
-]
+import { RankingItem, RankingLegend } from '../RankingItem'
 
 const List = styled.div`
   display: grid;
