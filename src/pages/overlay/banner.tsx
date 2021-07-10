@@ -2,11 +2,12 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { format } from 'date-fns'
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next'
-import { default as ReactTicker } from 'react-ticker'
+import Marquee from 'react-fast-marquee'
 
 import { h4Styles } from '../../components/Typography'
 import { View } from '../../components/View'
 import { colors } from '../../data/colors'
+import { useRefresh } from '../../hooks/useRefresh'
 import { getBannerData, Match } from '../../utils/getBannerData'
 import { gradient } from '../../utils/mixins'
 
@@ -17,6 +18,7 @@ const Banner = styled.div`
   width: 100%;
   background-color: green;
   ${h4Styles}
+  text-transform: uppercase;
 `
 
 const padding = css`
@@ -25,21 +27,24 @@ const padding = css`
 
 const Hashtag = styled.div`
   ${padding}
+  padding-right: 40px;
+  padding-left: 40px;
   ${gradient}
   background-color: ${colors.blueLight};
+  font-style: italic;
+  white-space: nowrap;
 `
 
-const Ticker = styled.div`
-  flex-grow: 1;
+const Ticker = styled(Marquee)`
   ${gradient}
   background-color: ${colors.blueDark};
+  width: auto !important;
 `
 
 const MatchDiv = styled.span`
   display: inline-block;
   ${padding}
   white-space: nowrap;
-  text-transform: uppercase;
 `
 
 const Text = styled.div`
@@ -48,8 +53,11 @@ const Text = styled.div`
 
 const Time = styled.div`
   ${padding}
+  padding-right: 40px;
+  padding-left: 40px;
   ${gradient}
   background-color: ${colors.blue};
+  white-space: nowrap;
 `
 
 const matchString = (match) => {
@@ -65,27 +73,25 @@ const matchString = (match) => {
 }
 
 const IndexPage: NextPage<{ matches: Match[] }> = ({ matches }) => {
+  useRefresh()
+
   const time = format(new Date(), 'HH:mm')
 
   return (
     <View hideBackground>
       <Banner>
         <Hashtag>#rlmsltxi</Hashtag>
-        <Ticker>
-          <ReactTicker height={60} speed={10}>
-            {() => (
-              <Text>
-                {matches.map((i) => (
-                  <>
-                    <MatchDiv key={`${i.team1.name}-${i.team2.name}`}>
-                      {matchString(i)}
-                    </MatchDiv>
-                    <MatchDiv>|</MatchDiv>
-                  </>
-                ))}
-              </Text>
-            )}
-          </ReactTicker>
+        <Ticker gradient={false} speed={60}>
+          <Text>
+            {matches.map((i) => (
+              <>
+                <MatchDiv key={`${i.team1.name}-${i.team2.name}`}>
+                  {matchString(i)}
+                </MatchDiv>
+                <MatchDiv>|</MatchDiv>
+              </>
+            ))}
+          </Text>
         </Ticker>
         <Time>{time}</Time>
       </Banner>
