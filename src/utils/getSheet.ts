@@ -16,7 +16,8 @@ export const getSheet = async (): Promise<{ teams: RankingItem[] }> => {
 
   await sheet.loadCells('A1:G7')
 
-  const teams = [null, Array(6)].map((value, index) => {
+  // eslint-disable-next-line prefer-spread
+  const teams = Array.apply(null, Array(6)).map((value, index) => {
     const rowIndex = index + 1
 
     const team: RankingItem = {
