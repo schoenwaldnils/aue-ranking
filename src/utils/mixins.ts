@@ -34,3 +34,17 @@ export const aspectRatio = (
     padding-top: ${(100 / ratio).toFixed(4)}%;
   }
 `
+
+export const gradient = css`
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
+`
+
+export const border = css`
+  border-color: rgba(255, 255, 255, 0.8);
+  border-width: 2px;
+  border-style: none;
+`
+
+export const slant = css`
+  clip-path: polygon(0% 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+`

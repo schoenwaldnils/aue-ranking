@@ -30,15 +30,20 @@ const Content = styled.div`
   }
 `
 
-export const View: FC = ({ children }) => {
+export const View: FC<{ hideBackground?: boolean }> = ({
+  hideBackground,
+  children,
+}) => {
   return (
     <ViewHD>
-      <Background
-        src={bg}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
-      />
+      {!hideBackground && (
+        <Background
+          src={bg}
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+        />
+      )}
       <Content>{children}</Content>
     </ViewHD>
   )

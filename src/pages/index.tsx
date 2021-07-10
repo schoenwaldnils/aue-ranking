@@ -6,6 +6,7 @@ import { h2Styles, Link } from '../components/Typography'
 import { View } from '../components/View'
 
 const StyledLink = styled(Link)`
+  display: block;
   ${h2Styles}
 `
 
@@ -14,6 +15,7 @@ const IndexPage: NextPage = () => {
     <View>
       <GlasPane>
         <StyledLink href="/standings">Standings</StyledLink>
+        <StyledLink href="/overlay/banner">Banner</StyledLink>
       </GlasPane>
     </View>
   )

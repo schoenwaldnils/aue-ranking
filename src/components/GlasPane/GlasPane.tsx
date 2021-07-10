@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { FC } from 'react'
 
-import { Headline1, Headline3 } from '../Typography'
+import { depthStyles, Headline1, Headline3 } from '../Typography'
 
 const Glas = styled.div`
   display: flex;
@@ -16,10 +16,13 @@ const Glas = styled.div`
   box-shadow: 1rem 1rem 1rem 0 rgba(0, 0, 0, 0.7);
 `
 
-const Title = styled(Headline1)``
+const Title = styled(Headline1)`
+  ${depthStyles}
+`
 
 const Subtitle = styled(Headline3)`
   margin-bottom: 10px;
+  ${depthStyles}
 `
 
 export const GlasPane: FC<{ title?: string; subtitle?: string }> = ({

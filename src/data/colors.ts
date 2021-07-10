@@ -13,12 +13,7 @@ export const colors = {
   warning: '#c61010',
   success: '#3eba43',
 
-  red: '#fc3848',
-  redPlus1: '#fa707d',
-  redPlus2: '#f77884',
-  orange: '#ffb86c',
-  green: '#19f9d8',
-  blue: '#45a9f9',
-  purple: '#b084eb',
-  pink: '#ff9ac1',
+  blueLight: '#00bbff',
+  blue: '#0050ff',
+  blueDark: '#000982',
 }

@@ -2,13 +2,15 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { FC } from 'react'
 
+import { colors } from '../../data/colors'
+import { border, gradient, slant } from '../../utils/mixins'
 import { h3Styles } from '../Typography'
 
 const itemHeight = '84px'
 
 const itemGradient = css`
-  background-color: #000982;
-  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
+  background-color: ${colors.blueDark};
+  ${gradient}
 `
 
 const Index = styled.div<{ highlight?: boolean }>`
@@ -17,10 +19,11 @@ const Index = styled.div<{ highlight?: boolean }>`
   align-items: center;
   width: ${itemHeight};
   height: ${itemHeight};
+  background-color: ${colors.blue};
   ${itemGradient}
-  background-color: #0050ff;
   ${h3Styles}
-  border: 2px solid rgba(255, 255, 255, .8);
+  ${border}
+  border-style: solid;
 `
 
 const Image = styled.div`
@@ -28,12 +31,13 @@ const Image = styled.div`
   align-items: center;
   height: ${itemHeight};
   padding: 0 14px;
-  border-top: 2px solid rgba(255, 255, 255, 0.8);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
-  border-right: 2px solid rgba(255, 255, 255, 0.8);
+  ${border}
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-right-style: solid;
 
   ${itemGradient}
-  background-color: #00bbff;
+  background-color: ${colors.blueLight};
 `
 
 const Name = styled.div`
@@ -44,8 +48,9 @@ const Name = styled.div`
   padding: 0 64px 0 32px;
   ${h3Styles}
   text-transform: uppercase;
-  border-top: 2px solid rgba(255, 255, 255, 0.8);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+  ${border}
+  border-top-style: solid;
+  border-bottom-style: solid;
 
   ${itemGradient}
 `
@@ -58,16 +63,16 @@ const Numbers = styled.div`
   padding: 0 32px;
   ${h3Styles}
   text-align: center;
-  border-top: 2px solid rgba(255, 255, 255, 0.8);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+  ${border}
+  border-style: solid none;
 
   ${itemGradient}
 `
 
 const Goals = styled(Numbers)`
   ${itemGradient}
-  clip-path: polygon(0% 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-  border-right: 2px solid rgba(255, 255, 255, 0.8);
+  ${slant}
+  border-style: solid solid solid none;
 `
 
 export type RankingItem = {
