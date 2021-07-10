@@ -38,6 +38,12 @@ const Ticker = styled.div`
 const MatchDiv = styled.span`
   display: inline-block;
   ${padding}
+  white-space: nowrap;
+  text-transform: uppercase;
+`
+
+const Text = styled.div`
+  display: flex;
 `
 
 const Time = styled.div`
@@ -66,17 +72,19 @@ const IndexPage: NextPage<{ matches: Match[] }> = ({ matches }) => {
       <Banner>
         <Hashtag>#rlmsltxi</Hashtag>
         <Ticker>
-          <ReactTicker height={60}>
-            {() =>
-              matches.map((i) => (
-                <>
-                  <MatchDiv key={`${i.team1.name}-${i.team2.name}`}>
-                    {matchString(i)}
-                  </MatchDiv>
-                  <MatchDiv>|</MatchDiv>
-                </>
-              ))
-            }
+          <ReactTicker height={60} speed={10}>
+            {() => (
+              <Text>
+                {matches.map((i) => (
+                  <>
+                    <MatchDiv key={`${i.team1.name}-${i.team2.name}`}>
+                      {matchString(i)}
+                    </MatchDiv>
+                    <MatchDiv>|</MatchDiv>
+                  </>
+                ))}
+              </Text>
+            )}
           </ReactTicker>
         </Ticker>
         <Time>{time}</Time>
