@@ -16,6 +16,7 @@ const IndexPage: NextPage = () => {
       <GlasPane>
         <StyledLink href="/standings">Standings</StyledLink>
         <StyledLink href="/overlay/banner">Banner</StyledLink>
+        <StyledLink href="/overlay/abspann">Abspann</StyledLink>
       </GlasPane>
     </View>
   )
