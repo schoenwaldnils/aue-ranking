@@ -17,24 +17,25 @@ const Text = styled.div<{ centerText: boolean }>`
   margin-bottom: 0.5em;
 `
 
-const IndexPage: NextPage<{ texts: TextRow[] }> = ({ texts }) => {
-  return (
-    <View hideBackground>
-      <Scroll>
-        <Column>
-          {texts.map((text, key) => (
-            <Text key={`${key}-${text.left}`} centerText={!text.right}>
-              {text.left && <span>{text.left}</span>}
-              {(!!text.right || text.right === '0') && (
-                <span>{text.right}</span>
-              )}
-            </Text>
-          ))}
-        </Column>
-      </Scroll>
-    </View>
-  )
-}
+const IndexPage: NextPage<{ texts: TextRow[]; scrollPixelPerSecond?: number }> =
+  ({ texts, scrollPixelPerSecond }) => {
+    return (
+      <View hideBackground>
+        <Scroll pixelPerSecond={scrollPixelPerSecond}>
+          <Column>
+            {texts.map((text, key) => (
+              <Text key={`${key}-${text.left}`} centerText={!text.right}>
+                {text.left && <span>{text.left}</span>}
+                {(!!text.right || text.right === '0') && (
+                  <span>{text.right}</span>
+                )}
+              </Text>
+            ))}
+          </Column>
+        </Scroll>
+      </View>
+    )
+  }
 
 export const getServerSideProps: GetServerSideProps = async (): Promise<
   GetServerSidePropsResult<{ [key: string]: unknown }>

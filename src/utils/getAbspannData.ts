@@ -4,6 +4,7 @@ export type TextRow = { left?: string; right?: string }
 
 export const getAbspannData = async (): Promise<{
   texts: TextRow[]
+  scrollPixelPerSecond?: number
 }> => {
   // Initialize the sheet - doc ID is the long id in the sheets URL
   const doc = new GoogleSpreadsheet(
@@ -17,6 +18,7 @@ export const getAbspannData = async (): Promise<{
   const sheet = doc.sheetsByTitle['Abspann']
 
   await sheet.loadCells('A1:B606')
+  await sheet.loadCells('C1')
 
   // eslint-disable-next-line prefer-spread
   const texts = Array.apply(null, Array(606)).map((value, index) => {
@@ -52,5 +54,6 @@ export const getAbspannData = async (): Promise<{
 
   return {
     texts,
+    scrollPixelPerSecond: sheet.getCell(0, 2).value as number,
   }
 }
