@@ -2,6 +2,10 @@ import { GoogleSpreadsheet } from 'google-spreadsheet'
 
 export type TextRow = { left?: string; right?: string }
 
+const isFloat = (n: number) => {
+  return Number(n) === n && n % 1 !== 0
+}
+
 export const getAbspannData = async (): Promise<{
   texts: TextRow[]
   scrollPixelPerSecond?: number
@@ -38,7 +42,11 @@ export const getAbspannData = async (): Promise<{
     }
 
     if (typeof left === 'number') {
-      text.left = left.toString()
+      if (isFloat(left)) {
+        text.left = left.toFixed(1)
+      } else {
+        text.left = left.toString()
+      }
     }
 
     if (typeof right === 'string') {
@@ -46,7 +54,11 @@ export const getAbspannData = async (): Promise<{
     }
 
     if (typeof right === 'number') {
-      text.right = right.toString()
+      if (isFloat(right)) {
+        text.right = right.toFixed(1)
+      } else {
+        text.right = right.toString()
+      }
     }
 
     return text
