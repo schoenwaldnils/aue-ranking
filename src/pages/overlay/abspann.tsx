@@ -40,11 +40,12 @@ const IndexPage: NextPage<{ texts: TextRow[]; scrollPixelPerSecond?: number }> =
 export const getServerSideProps: GetServerSideProps = async (): Promise<
   GetServerSidePropsResult<{ [key: string]: unknown }>
 > => {
-  const { texts } = await getAbspannData()
+  const { texts, scrollPixelPerSecond } = await getAbspannData()
 
   return {
     props: {
       texts,
+      scrollPixelPerSecond,
     },
   }
 }

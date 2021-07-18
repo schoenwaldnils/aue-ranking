@@ -52,8 +52,10 @@ export const getAbspannData = async (): Promise<{
     return text
   })
 
+  const scrollPixelPerSecond = sheet.getCell(0, 2).value as number
+
   return {
     texts,
-    scrollPixelPerSecond: sheet.getCell(0, 2).value as number,
+    scrollPixelPerSecond,
   }
 }
