@@ -3,7 +3,9 @@ import { RoundProps } from 'react-brackets'
 
 export const getBrackets = async (): Promise<{
   winnerBracket: RoundProps[]
-  looserBracket: RoundProps[]
+  winnerBracketPlusFinal: RoundProps[]
+  loserBracket: RoundProps[]
+  finalBracket: RoundProps[]
 }> => {
   // Initialize the sheet - doc ID is the long id in the sheets URL
   const doc = new GoogleSpreadsheet(
@@ -80,19 +82,9 @@ export const getBrackets = async (): Promise<{
         },
       ],
     },
-    {
-      title: null,
-      seeds: [
-        {
-          id: 'final',
-          title: sheet.getCell(58, 0).value,
-          teams: [getTeam(61, 1, true), getTeam(61, 5, true)],
-        },
-      ],
-    },
   ]
 
-  const looserBracket: RoundProps[] = [
+  const loserBracket: RoundProps[] = [
     {
       title: null,
       seeds: [
@@ -125,14 +117,47 @@ export const getBrackets = async (): Promise<{
         {
           id: 'lb final',
           title: sheet.getCell(50, 1).value,
+          singleLine: true,
           teams: [getTeam(51, 1), getTeam(51, 5)],
         },
       ],
     },
   ]
 
+  const final = {
+    title: null,
+    seeds: [
+      {
+        id: 'final',
+        title: sheet.getCell(58, 0).value,
+        teams: [getTeam(61, 1, true), getTeam(61, 5, true)],
+      },
+    ],
+  }
+
+  const winnerBracketPlusFinal = [...winnerBracket, final]
+
+  const finalBracket = [
+    {
+      title: null,
+      seeds: [
+        {
+          ...winnerBracket[winnerBracket.length - 1].seeds[0],
+          singleLine: false,
+        },
+        {
+          ...loserBracket[loserBracket.length - 1].seeds[0],
+          singleLine: false,
+        },
+      ],
+    },
+    final,
+  ]
+
   return {
     winnerBracket,
-    looserBracket,
+    winnerBracketPlusFinal,
+    loserBracket,
+    finalBracket,
   }
 }

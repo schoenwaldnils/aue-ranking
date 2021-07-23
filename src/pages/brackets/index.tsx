@@ -2,17 +2,17 @@ import styled from '@emotion/styled'
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next'
 import { RoundProps } from 'react-brackets'
 
-import { Bracket } from '../components/Bracket'
-import { GlasPane } from '../components/GlasPane'
-import { depthStyles, Headline3 } from '../components/Typography'
-import { View } from '../components/View'
-import { getBrackets } from '../utils/getBrackets'
+import { Bracket } from '../../components/Bracket'
+import { GlasPane } from '../../components/GlasPane'
+import { depthStyles, Headline3 } from '../../components/Typography'
+import { View } from '../../components/View'
+import { getBrackets } from '../../utils/getBrackets'
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 `
 
 const Headline = styled(Headline3)`
@@ -22,20 +22,20 @@ const Headline = styled(Headline3)`
 `
 
 const BracketPage: NextPage<{
-  winnerBracket: RoundProps[]
-  looserBracket: RoundProps[]
-}> = ({ winnerBracket, looserBracket }) => {
+  winnerBracketPlusFinal: RoundProps[]
+  loserBracket: RoundProps[]
+}> = ({ winnerBracketPlusFinal, loserBracket }) => {
   return (
-    <View isHd={false}>
+    <View>
       <GlasPane title="Playoffs">
         <Content>
           <div>
             <Headline>Winner Bracket</Headline>
-            <Bracket rounds={winnerBracket} />
+            <Bracket rounds={winnerBracketPlusFinal} fontSize={17} />
           </div>
           <div>
             <Headline>Loser Bracket</Headline>
-            <Bracket rounds={looserBracket} />
+            <Bracket rounds={loserBracket} fontSize={17} />
           </div>
         </Content>
       </GlasPane>
@@ -46,12 +46,12 @@ const BracketPage: NextPage<{
 export const getServerSideProps: GetServerSideProps = async (): Promise<
   GetServerSidePropsResult<{ [key: string]: unknown }>
 > => {
-  const { winnerBracket, looserBracket } = await getBrackets()
+  const { winnerBracketPlusFinal, loserBracket } = await getBrackets()
 
   return {
     props: {
-      winnerBracket,
-      looserBracket,
+      winnerBracketPlusFinal,
+      loserBracket,
     },
   }
 }

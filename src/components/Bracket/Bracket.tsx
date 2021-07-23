@@ -49,7 +49,6 @@ const TeamName = styled.div<{ isWinner: boolean }>`
 
 const seedStyles: CSSProperties = {
   position: 'relative',
-  fontSize: 24,
   paddingTop: '1.25em',
   paddingBottom: '1.25em',
   minWidth: '32ch',
@@ -80,7 +79,10 @@ const Result = styled.div<{ isWon: boolean; isPlayed?: boolean }>`
   ${gradient}
 `
 
-export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
+export const Bracket: FC<{ rounds: RoundProps[]; fontSize?: number }> = ({
+  rounds,
+  fontSize,
+}) => {
   const CustomSeed = ({ seed, breakpoint }: RenderSeedProps) => {
     // if (!seed.teams) {
     //   return (
@@ -129,7 +131,10 @@ export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
 
     // mobileBreakpoint is required to be passed down to a seed
     return (
-      <Wrapper mobileBreakpoint={breakpoint} style={seedStyles}>
+      <Wrapper
+        mobileBreakpoint={breakpoint}
+        style={{ ...seedStyles, fontSize: fontSize || 24 }}
+      >
         {seed.title && <Title>{seed.title}</Title>}
         <SeedItem>
           <div>

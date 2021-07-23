@@ -11,7 +11,10 @@ export type Match = {
   }
 }
 
-export const getBannerData = async (): Promise<{ matches: Match[] }> => {
+export const getBannerData = async (): Promise<{
+  allMatches: Match[]
+  matches: Match[]
+}> => {
   // Initialize the sheet - doc ID is the long id in the sheets URL
   const doc = new GoogleSpreadsheet(
     '1dhviQAHF92P4_5vp0adUHpI2I2tupNmLsXc66Ckn2lE',
@@ -51,6 +54,7 @@ export const getBannerData = async (): Promise<{ matches: Match[] }> => {
   ).length
 
   return {
+    allMatches: matches,
     matches: matches.slice(0, playedMatches + 2),
   }
 }
