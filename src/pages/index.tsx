@@ -14,7 +14,8 @@ const IndexPage: NextPage = () => {
   return (
     <View>
       <GlasPane>
-        <StyledLink href="/standings">Reg Season</StyledLink>
+        <StyledLink href="/regular">Reg Season</StyledLink>
+        <StyledLink href="/standings">Standings</StyledLink>
         <StyledLink href="/playoffs">PlayOffs</StyledLink>
         <StyledLink href="/brackets">Brackets - Overview</StyledLink>
         <StyledLink href="/brackets/winner">Brackets - Winner</StyledLink>
