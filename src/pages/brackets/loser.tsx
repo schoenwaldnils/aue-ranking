@@ -5,6 +5,7 @@ import { RoundProps } from 'react-brackets'
 import { Bracket } from '../../components/Bracket'
 import { GlasPane } from '../../components/GlasPane'
 import { View } from '../../components/View'
+import { useRefresh } from '../../hooks/useRefresh'
 import { getBrackets } from '../../utils/getBrackets'
 
 const Content = styled.div`
@@ -18,6 +19,8 @@ const Content = styled.div`
 const BracketPage: NextPage<{
   loserBracket: RoundProps[]
 }> = ({ loserBracket }) => {
+  useRefresh()
+
   return (
     <View>
       <GlasPane title="Playoffs" subtitle="Loser Bracket">

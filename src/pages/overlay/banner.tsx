@@ -2,6 +2,7 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { format } from 'date-fns'
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next'
+import { Fragment } from 'react'
 import Marquee from 'react-fast-marquee'
 
 import { h4Styles } from '../../components/Typography'
@@ -60,7 +61,7 @@ const Time = styled.div`
   white-space: nowrap;
 `
 
-const matchString = (match) => {
+const matchString = (match: Match) => {
   if (
     !match.team1.goals &&
     match.team1.goals !== 0 &&
@@ -83,13 +84,13 @@ const IndexPage: NextPage<{ matches: Match[] }> = ({ matches }) => {
         <Hashtag>#rlmsltxi</Hashtag>
         <Ticker gradient={false} speed={60}>
           <Text>
-            {matches.map((i) => (
-              <>
+            {matches.map((i, key) => (
+              <Fragment key={`banner-match-${key}`}>
                 <MatchDiv key={`${i.team1.name}-${i.team2.name}`}>
                   {matchString(i)}
                 </MatchDiv>
                 <MatchDiv>|</MatchDiv>
-              </>
+              </Fragment>
             ))}
           </Text>
         </Ticker>

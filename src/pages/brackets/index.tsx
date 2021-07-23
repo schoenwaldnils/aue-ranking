@@ -6,6 +6,7 @@ import { Bracket } from '../../components/Bracket'
 import { GlasPane } from '../../components/GlasPane'
 import { depthStyles, Headline3 } from '../../components/Typography'
 import { View } from '../../components/View'
+import { useRefresh } from '../../hooks/useRefresh'
 import { getBrackets } from '../../utils/getBrackets'
 
 const Content = styled.div`
@@ -25,6 +26,8 @@ const BracketPage: NextPage<{
   winnerBracketPlusFinal: RoundProps[]
   loserBracket: RoundProps[]
 }> = ({ winnerBracketPlusFinal, loserBracket }) => {
+  useRefresh()
+
   return (
     <View>
       <GlasPane title="Playoffs">

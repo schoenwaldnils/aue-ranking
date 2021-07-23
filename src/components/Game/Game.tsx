@@ -32,7 +32,8 @@ const TeamName = styled.div<{ played: boolean }>`
   font-weight: bold;
   text-transform: uppercase;
   ${border}
-  border-style: solid;
+  border-top-style: solid;
+  border-bottom-style: solid;
   white-space: nowrap;
 `
 
