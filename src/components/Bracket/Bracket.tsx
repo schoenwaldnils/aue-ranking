@@ -130,9 +130,6 @@ export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
     const Wrapper = seed.singleLine ? SingleLineSeed : Seed
 
     const gamesLength = seed.teams[0].games.length
-    const gamesPlayed = seed.teams[0].games.filter((i) => i || i === 0).length
-
-    const allGamesPlayed = gamesLength === gamesPlayed
 
     const teamOneGamesWon = seed.teams[0].games.filter(
       (i, key) => (i || i === 0) && i > seed.teams[1].games[key],
@@ -142,8 +139,8 @@ export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
       (i, key) => (i || i === 0) && i > seed.teams[0].games[key],
     ).length
 
-    const teamOneWon = allGamesPlayed && teamOneGamesWon > teamTwoGamesWon
-    const teamTwoWon = allGamesPlayed && teamOneGamesWon < teamTwoGamesWon
+    const teamOneWon = teamOneGamesWon > gamesLength / 2
+    const teamTwoWon = teamTwoGamesWon > gamesLength / 2
 
     // mobileBreakpoint is required to be passed down to a seed
     return (
