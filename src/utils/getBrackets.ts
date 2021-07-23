@@ -76,7 +76,7 @@ export const getBrackets = async (): Promise<{
           id: 'wb final',
           title: sheet.getCell(40, 1).value,
           singleLine: true,
-          teams: [getTeam(40, 1), getTeam(40, 5)],
+          teams: [getTeam(41, 1), getTeam(41, 5)],
         },
       ],
     },
