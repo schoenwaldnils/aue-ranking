@@ -24,7 +24,7 @@ const IndexPage: NextPage<{ teams: RankingItem[] }> = ({ teams }) => {
 
   return (
     <View>
-      <GlasPane title="Standings" subtitle="Play Offs">
+      <GlasPane title="Standings" subtitle="Playoffs">
         <RankingList teams={sortedTeam} />
       </GlasPane>
     </View>

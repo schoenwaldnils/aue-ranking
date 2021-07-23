@@ -4,16 +4,30 @@ import { FC } from 'react'
 import { depthStyles, Headline1, Headline3 } from '../Typography'
 
 const Glas = styled.div`
+  position: relative;
+  margin: 60px 80px;
+  border-radius: 0.25rem;
+  overflow: hidden;
+`
+
+const Pane = styled.div`
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  bottom: -30px;
+  left: -30px;
+  box-shadow: inset 0 0 0 3000px rgba(255, 255, 255, 0.23);
+  filter: blur(20px);
+`
+
+const Content = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 60px 80px;
+  height: 100%;
   padding: 40px 30px;
-  background-color: rgba(200, 200, 255, 0.25);
-  backdrop-filter: blur(0.5rem);
-  border-radius: 0.25rem;
-  box-shadow: 1rem 1rem 1rem 0 rgba(0, 0, 0, 0.7);
 `
 
 const Title = styled(Headline1)`
@@ -32,9 +46,12 @@ export const GlasPane: FC<{ title?: string; subtitle?: string }> = ({
 }) => {
   return (
     <Glas>
-      {title && <Title>{title}</Title>}
-      {subtitle && <Subtitle>{subtitle}</Subtitle>}
-      <div>{children}</div>
+      <Pane />
+      <Content>
+        {title && <Title>{title}</Title>}
+        {subtitle && <Subtitle>{subtitle}</Subtitle>}
+        <div>{children}</div>
+      </Content>
     </Glas>
   )
 }

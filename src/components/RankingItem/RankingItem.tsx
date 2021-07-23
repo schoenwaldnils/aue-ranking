@@ -71,7 +71,7 @@ const Numbers = styled.div`
 
 const Goals = styled(Numbers)`
   ${itemGradient}
-  ${slant}
+  ${slant(8)}
   border-style: solid solid solid none;
 `
 

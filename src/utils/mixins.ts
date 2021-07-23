@@ -45,6 +45,18 @@ export const border = css`
   border-style: none;
 `
 
-export const slant = css`
-  clip-path: polygon(0% 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+export const slant = (pixel: number): SerializedStyles => css`
+  position: relative;
+  clip-path: polygon(0% 0%, 100% 0%, calc(100% - ${pixel}px) 100%, 0% 100%);
+
+  :after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: ${pixel}px;
+    background-color: rgba(255, 255, 255, 0.8);
+    clip-path: polygon(${pixel}px 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
 `

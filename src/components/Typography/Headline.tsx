@@ -66,7 +66,10 @@ export const Subline = styled.div`
 `
 
 export const depthStyles = css`
-  text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191,
-    1px 4px 1px #919191, 1px 5px 1px #919191, 1px 6px 1px #919191,
-    1px 25px 35px rgba(16, 16, 16, 0.2), 1px 30px 60px rgba(16, 16, 16, 0.4);
+  text-shadow: 0.01em 0.01em 0.01em #919191, 0.01em 0.02em 0.01em #919191,
+    0.01em 0.03em 0.01em #919191, 0.01em 0.04em 0.01em #919191,
+    0.01em 0.05em 0.01em #919191, 0.01em 0.06em 0.01em #919191,
+    0.01em 0.07em 0.01em #919191, 0.01em 0.08em 0.01em #919191,
+    0.01em 0.25em 0.35em rgba(16, 16, 16, 0.2),
+    0.01em 0.3em 0.6em rgba(16, 16, 16, 0.4);
 `
