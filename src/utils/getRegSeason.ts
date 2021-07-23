@@ -2,7 +2,7 @@ import { GoogleSpreadsheet } from 'google-spreadsheet'
 
 import { RankingItem } from '../components/RankingItem'
 
-export const getSheet = async (): Promise<{ teams: RankingItem[] }> => {
+export const getRegSeason = async (): Promise<{ teams: RankingItem[] }> => {
   // Initialize the sheet - doc ID is the long id in the sheets URL
   const doc = new GoogleSpreadsheet(
     '1dhviQAHF92P4_5vp0adUHpI2I2tupNmLsXc66Ckn2lE',
@@ -12,7 +12,7 @@ export const getSheet = async (): Promise<{ teams: RankingItem[] }> => {
 
   await doc.loadInfo()
 
-  const sheet = doc.sheetsByTitle['Progress']
+  const sheet = doc.sheetsByTitle['Regular Season Auswertung']
 
   await sheet.loadCells('A1:G7')
 

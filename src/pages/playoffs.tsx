@@ -6,7 +6,7 @@ import { RankingItem } from '../components/RankingItem'
 import { RankingList } from '../components/RankingList'
 import { View } from '../components/View'
 import { useRefresh } from '../hooks/useRefresh'
-import { getRegSeason } from '../utils/getRegSeason'
+import { getPlayOffs } from '../utils/getPlayOffs'
 
 const IndexPage: NextPage<{ teams: RankingItem[] }> = ({ teams }) => {
   // console.log(data.teams)
@@ -24,7 +24,7 @@ const IndexPage: NextPage<{ teams: RankingItem[] }> = ({ teams }) => {
 
   return (
     <View>
-      <GlasPane title="Standings" subtitle="Regular Season">
+      <GlasPane title="Standings" subtitle="Play Offs">
         <RankingList teams={sortedTeam} />
       </GlasPane>
     </View>
@@ -34,7 +34,7 @@ const IndexPage: NextPage<{ teams: RankingItem[] }> = ({ teams }) => {
 export const getServerSideProps: GetServerSideProps = async (): Promise<
   GetServerSidePropsResult<{ [key: string]: unknown }>
 > => {
-  const { teams } = await getRegSeason()
+  const { teams } = await getPlayOffs()
 
   return {
     props: {
