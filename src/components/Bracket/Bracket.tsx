@@ -18,6 +18,7 @@ import logoDemoOverBall from '../../data/images/logo-demo-over-ball.png'
 import logoNemesis from '../../data/images/logo-nemesis.png'
 import logoThreeWheeler from '../../data/images/logo-three-wheeler.png'
 import logoUneffectiveClones from '../../data/images/logo-uneffective-clones.png'
+import { gradient } from '../../utils/mixins'
 import { depthStyles, Headline4 } from '../Typography'
 
 const BracketContainer = styled.div`
@@ -46,8 +47,10 @@ const TeamWrapper = styled.div`
   width: max-content;
 `
 
-const TeamName = styled.div`
+const TeamName = styled.div<{ isWinner: boolean }>`
   white-space: nowrap;
+  color: ${(p) => (p.isWinner ? '#00ce00' : 'inherit')};
+  font-weight: ${(p) => (p.isWinner ? 'bold' : 'normal')};
 `
 
 const seedStyles: CSSProperties = {
@@ -71,6 +74,26 @@ const logos = {
   'Abteilung Foolgas': logoAbteilungFoolgas,
   'Big Brain': logoBigBrain,
 }
+
+const Games = styled.div`
+  display: flex;
+  gap: 0.25em;
+  margin-left: 1rem;
+`
+
+const Result = styled.div<{ isWon: boolean; isPlayed?: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.75ch;
+  height: 2.75ch;
+  font-size: 0.8em;
+  background-color: ${(p) => (p.isWon ? '#00c800' : 'white')};
+  color: ${(p) => (p.isWon ? 'white' : 'black')};
+  opacity: ${(p) => (p.isPlayed ? 1 : 0.5)};
+  border-radius: 0.125em;
+  ${gradient}
+`
 
 export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
   const CustomSeed = ({ seed, breakpoint }: RenderSeedProps) => {
@@ -106,6 +129,33 @@ export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
 
     const Wrapper = seed.singleLine ? SingleLineSeed : Seed
 
+    console.log(seed.teams[0])
+
+    const gamesLength = seed.teams[0].games.length
+    const gamesPlayed = seed.teams[0].games.filter((i) => i || i === 0).length
+
+    const allGamesPlayed = gamesLength === gamesPlayed
+
+    const teamOneGamesWon = seed.teams[0].games.filter(
+      (i, key) => (i || i === 0) && i > seed.teams[1].games[key],
+    ).length
+
+    const teamTwoGamesWon = seed.teams[1].games.filter(
+      (i, key) => (i || i === 0) && i > seed.teams[0].games[key],
+    ).length
+
+    const teamOneWon = allGamesPlayed && teamOneGamesWon > teamTwoGamesWon
+    const teamTwoWon = allGamesPlayed && teamOneGamesWon < teamTwoGamesWon
+
+    console.log({
+      gamesLength,
+      gamesPlayed,
+      teamOneGamesWon,
+      teamTwoGamesWon,
+      teamOneWon,
+      teamTwoWon,
+    })
+
     // mobileBreakpoint is required to be passed down to a seed
     return (
       <Wrapper mobileBreakpoint={breakpoint} style={seedStyles}>
@@ -121,8 +171,23 @@ export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
                   objectFit="contain"
                   objectPosition="center"
                 />
-                <TeamName>{seed.teams[0]?.name || '------------'}</TeamName>
+                <TeamName isWinner={teamOneWon}>
+                  {seed.teams[0]?.name || '------------'}
+                </TeamName>
               </TeamWrapper>
+              {seed.teams[0].games && (
+                <Games>
+                  {seed.teams[0].games.map((game, key) => (
+                    <Result
+                      isPlayed={game || game === 0}
+                      isWon={game > seed.teams[1].games[key]}
+                      key={key}
+                    >
+                      {game}
+                    </Result>
+                  ))}
+                </Games>
+              )}
             </SeedTeam>
             <SeedTeam>
               <TeamWrapper>
@@ -133,8 +198,23 @@ export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
                   objectFit="contain"
                   objectPosition="center"
                 />
-                <TeamName>{seed.teams[1]?.name || '------------'}</TeamName>
+                <TeamName isWinner={teamTwoWon}>
+                  {seed.teams[1]?.name || '------------'}
+                </TeamName>
               </TeamWrapper>
+              {seed.teams[1].games && (
+                <Games>
+                  {seed.teams[1].games.map((game, key) => (
+                    <Result
+                      isPlayed={game || game === 0}
+                      isWon={game > seed.teams[0].games[key]}
+                      key={key}
+                    >
+                      {game}
+                    </Result>
+                  ))}
+                </Games>
+              )}
             </SeedTeam>
           </div>
         </SeedItem>

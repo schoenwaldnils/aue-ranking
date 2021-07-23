@@ -1,4 +1,7 @@
-import { GoogleSpreadsheet } from 'google-spreadsheet'
+import {
+  GoogleSpreadsheet,
+  GoogleSpreadsheetWorksheet,
+} from 'google-spreadsheet'
 import { RoundProps } from 'react-brackets'
 
 export const getBrackets = async (): Promise<{
@@ -18,6 +21,24 @@ export const getBrackets = async (): Promise<{
 
   await sheet.loadCells('A1:M71')
 
+  const getTeam = (row: number, column: number, isFinal = false) => {
+    const team = {
+      name: sheet.getCell(row, column).value,
+      games: [
+        sheet.getCell(row + 1, column).value,
+        sheet.getCell(row + 3, column).value,
+        sheet.getCell(row + 5, column).value,
+      ],
+    }
+
+    if (isFinal) {
+      team.games.push(sheet.getCell(row + 7, column).value)
+      team.games.push(sheet.getCell(row + 9, column).value)
+    }
+
+    return team
+  }
+
   const winnerBracket: RoundProps[] = [
     {
       title: null,
@@ -26,19 +47,13 @@ export const getBrackets = async (): Promise<{
           id: 'wb 1.1',
           title: sheet.getCell(2, 1).value,
           singleLine: true,
-          teams: [
-            { name: sheet.getCell(3, 1).value },
-            { name: sheet.getCell(3, 5).value },
-          ],
+          teams: [getTeam(3, 1), getTeam(3, 5)],
         },
         {
           id: 'wb 1.2',
           title: sheet.getCell(2, 8).value,
           singleLine: true,
-          teams: [
-            { name: sheet.getCell(3, 8).value },
-            { name: sheet.getCell(3, 12).value },
-          ],
+          teams: [getTeam(3, 8), getTeam(3, 12)],
         },
       ],
     },
@@ -48,18 +63,12 @@ export const getBrackets = async (): Promise<{
         {
           id: 'wb 2.1',
           title: sheet.getCell(11, 1).value,
-          teams: [
-            { name: sheet.getCell(12, 1).value },
-            { name: sheet.getCell(12, 5).value },
-          ],
+          teams: [getTeam(12, 1), getTeam(12, 5)],
         },
         {
           id: 'wb 2.2',
           title: sheet.getCell(11, 8).value,
-          teams: [
-            { name: sheet.getCell(12, 8).value },
-            { name: sheet.getCell(12, 12).value },
-          ],
+          teams: [getTeam(12, 8), getTeam(12, 12)],
         },
       ],
     },
@@ -70,10 +79,7 @@ export const getBrackets = async (): Promise<{
           id: 'wb final',
           title: sheet.getCell(40, 1).value,
           singleLine: true,
-          teams: [
-            { name: sheet.getCell(41, 1).value },
-            { name: sheet.getCell(41, 5).value },
-          ],
+          teams: [getTeam(40, 1), getTeam(40, 5)],
         },
       ],
     },
@@ -83,10 +89,7 @@ export const getBrackets = async (): Promise<{
         {
           id: 'final',
           title: sheet.getCell(58, 0).value,
-          teams: [
-            { name: sheet.getCell(61, 1).value },
-            { name: sheet.getCell(61, 5).value },
-          ],
+          teams: [getTeam(61, 1, true), getTeam(61, 5, true)],
         },
       ],
     },
@@ -99,18 +102,12 @@ export const getBrackets = async (): Promise<{
         {
           id: 'lb 1.1',
           title: sheet.getCell(21, 1).value,
-          teams: [
-            { name: sheet.getCell(22, 1).value },
-            { name: sheet.getCell(22, 5).value },
-          ],
+          teams: [getTeam(22, 1), getTeam(22, 5)],
         },
         {
           id: 'lb 1.2',
           title: sheet.getCell(21, 8).value,
-          teams: [
-            { name: sheet.getCell(22, 8).value },
-            { name: sheet.getCell(22, 12).value },
-          ],
+          teams: [getTeam(22, 8), getTeam(22, 12)],
         },
       ],
     },
@@ -121,10 +118,7 @@ export const getBrackets = async (): Promise<{
           id: 'lb 2.1',
           title: sheet.getCell(30, 1).value,
           singleLine: true,
-          teams: [
-            { name: sheet.getCell(31, 1).value },
-            { name: sheet.getCell(31, 5).value },
-          ],
+          teams: [getTeam(31, 1), getTeam(31, 5)],
         },
       ],
     },
@@ -134,10 +128,7 @@ export const getBrackets = async (): Promise<{
         {
           id: 'lb final',
           title: sheet.getCell(50, 1).value,
-          teams: [
-            { name: sheet.getCell(51, 1).value },
-            { name: sheet.getCell(51, 5).value },
-          ],
+          teams: [getTeam(51, 1), getTeam(51, 5)],
         },
       ],
     },
