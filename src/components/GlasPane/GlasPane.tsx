@@ -16,8 +16,8 @@ const Pane = styled.div`
   right: -30px;
   bottom: -30px;
   left: -30px;
-  box-shadow: inset 0 0 0 3000px rgba(255, 255, 255, 0.23);
-  filter: blur(20px);
+  box-shadow: inset 0 0 0 3000px rgba(255, 255, 255, 0.15);
+  filter: blur(30px);
 `
 
 const Content = styled.div`

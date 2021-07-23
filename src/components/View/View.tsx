@@ -1,6 +1,8 @@
 import styled from '@emotion/styled'
 import { FC } from 'react'
 
+import { colors } from '../../data/colors'
+
 const ViewFree = styled.div`
   position: relative;
   overflow: hidden;
@@ -19,6 +21,7 @@ const Background = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: ${colors.almostblack};
   background-image: radial-gradient(
       circle,
       rgba(0, 0, 0, 0) 0%,
