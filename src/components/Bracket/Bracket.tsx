@@ -129,8 +129,6 @@ export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
 
     const Wrapper = seed.singleLine ? SingleLineSeed : Seed
 
-    console.log(seed.teams[0])
-
     const gamesLength = seed.teams[0].games.length
     const gamesPlayed = seed.teams[0].games.filter((i) => i || i === 0).length
 
@@ -146,15 +144,6 @@ export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
 
     const teamOneWon = allGamesPlayed && teamOneGamesWon > teamTwoGamesWon
     const teamTwoWon = allGamesPlayed && teamOneGamesWon < teamTwoGamesWon
-
-    console.log({
-      gamesLength,
-      gamesPlayed,
-      teamOneGamesWon,
-      teamTwoGamesWon,
-      teamOneWon,
-      teamTwoWon,
-    })
 
     // mobileBreakpoint is required to be passed down to a seed
     return (

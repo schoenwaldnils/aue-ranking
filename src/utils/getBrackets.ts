@@ -1,7 +1,4 @@
-import {
-  GoogleSpreadsheet,
-  GoogleSpreadsheetWorksheet,
-} from 'google-spreadsheet'
+import { GoogleSpreadsheet } from 'google-spreadsheet'
 import { RoundProps } from 'react-brackets'
 
 export const getBrackets = async (): Promise<{
