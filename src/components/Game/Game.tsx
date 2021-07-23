@@ -30,6 +30,7 @@ const TeamName = styled.div<{ played: boolean }>`
   background-color: ${(p) => (p.played ? colors.blue : colors.gray)};
   ${gradient}
   font-weight: bold;
+  text-transform: uppercase;
   ${border}
   border-style: solid;
   white-space: nowrap;
@@ -49,8 +50,6 @@ const Score = styled.div<{ played: boolean }>`
   ${border}
   border-style: solid;
   white-space: nowrap;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 1.25rem;
 `
 
 export const Game: FC<{
