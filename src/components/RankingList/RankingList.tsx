@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { FC } from 'react'
 
+import { logos } from '../../data/logos'
 import { RankingItem, RankingLegend } from '../RankingItem'
 
 const List = styled.div`
@@ -14,7 +15,7 @@ const List = styled.div`
 export const RankingList: FC<{ teams: RankingItem[] }> = ({ teams }) => {
   const teamsWithLogo = teams.map((t) => ({
     ...t,
-    teamLogo: 'https://www.fillmurray.com/64/64',
+    teamLogo: logos[t.teamName],
   }))
 
   return (

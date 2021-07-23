@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import NextImage from 'next/image'
 import { FC } from 'react'
 
 import { colors } from '../../data/colors'
@@ -98,7 +99,14 @@ export const RankingItem: FC<RankingItem & { index: number }> = ({
       <Index highlight={index <= 3}>{index}</Index>
       <Image>
         {/* eslint-disable-next-line @next/next/no-img-element*/}
-        <img src={teamLogo} width={64} height={64} alt="logo" />
+        <NextImage
+          src={teamLogo}
+          width={64}
+          height={64}
+          alt="logo"
+          objectFit="contain"
+          objectPosition="center"
+        />
       </Image>
       <Name>{teamName}</Name>
       <Numbers>

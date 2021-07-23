@@ -11,13 +11,7 @@ import {
   SingleLineSeed,
 } from 'react-brackets'
 
-import logoAbteilungFoolgas from '../../data/images/logo-abteilung-foolgas.png'
-import logoAue from '../../data/images/logo-aue-small.png'
-import logoBigBrain from '../../data/images/logo-big-brain.png'
-import logoDemoOverBall from '../../data/images/logo-demo-over-ball.png'
-import logoNemesis from '../../data/images/logo-nemesis.png'
-import logoThreeWheeler from '../../data/images/logo-three-wheeler.png'
-import logoUneffectiveClones from '../../data/images/logo-uneffective-clones.png'
+import { logos } from '../../data/logos'
 import { gradient } from '../../utils/mixins'
 import { depthStyles, Headline4 } from '../Typography'
 
@@ -65,15 +59,6 @@ const Logo = styled(Image)`
   width: 2em;
   height: 2em;
 `
-
-const logos = {
-  Nemesis: logoNemesis,
-  'Three Wheeler E-Sports': logoThreeWheeler,
-  'Demo over Ball': logoDemoOverBall,
-  'Uneffective Clones': logoUneffectiveClones,
-  'Abteilung Foolgas': logoAbteilungFoolgas,
-  'Big Brain': logoBigBrain,
-}
 
 const Games = styled.div`
   display: flex;
@@ -151,7 +136,7 @@ export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
             <SeedTeam>
               <TeamWrapper>
                 <Logo
-                  src={logos[seed.teams[0]?.name] || logoAue}
+                  src={logos[seed.teams[0]?.name] || logos.fallback}
                   width="48"
                   height="48"
                   objectFit="contain"
@@ -178,7 +163,7 @@ export const Bracket: FC<{ rounds: RoundProps[] }> = ({ rounds }) => {
             <SeedTeam>
               <TeamWrapper>
                 <Logo
-                  src={logos[seed.teams[1]?.name] || logoAue}
+                  src={logos[seed.teams[1]?.name] || logos.fallback}
                   width="48"
                   height="48"
                   objectFit="contain"
