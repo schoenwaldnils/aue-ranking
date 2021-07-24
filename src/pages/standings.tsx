@@ -18,7 +18,7 @@ const IndexPage: NextPage<{ teams: RankingItem[] }> = ({ teams }) => {
       if (b.wins - a.wins !== 0) {
         return b.wins - a.wins
       }
-      return b.loses - a.loses
+      return a.loses - b.loses
     })
   }, [teams])
 
