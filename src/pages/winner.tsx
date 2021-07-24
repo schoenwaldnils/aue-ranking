@@ -27,7 +27,7 @@ const Content = styled.div`
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  gap: 10rem;
+  grid-gap: 10rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
 `
@@ -37,13 +37,13 @@ const Logo = styled.div``
 const Stats = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  grid-gap: 2rem;
 `
 
 const Table = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 8rem;
+  grid-column-gap: 8rem;
   font-size: 1.75rem;
 `
 
