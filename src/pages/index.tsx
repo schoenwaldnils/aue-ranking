@@ -23,6 +23,7 @@ const IndexPage: NextPage = () => {
         <StyledLink href="/brackets/final">Brackets - Final</StyledLink>
         <StyledLink href="/overlay/banner">Banner</StyledLink>
         <StyledLink href="/overlay/abspann">Abspann</StyledLink>
+        <StyledLink href="/winner">Winner</StyledLink>
       </GlasPane>
     </View>
   )
