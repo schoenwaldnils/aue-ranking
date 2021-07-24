@@ -10,7 +10,7 @@ import { getBannerData, Match } from '../utils/getBannerData'
 const Games = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  grid-gap: 1rem;
   margin-top: 3rem;
   margin-bottom: 5rem;
 `
@@ -19,7 +19,7 @@ const GameList = styled.div`
   display: grid;
   grid-template-columns: auto 1fr auto 1fr auto;
   align-items: center;
-  row-gap: 6px;
+  grid-row-gap: 6px;
   margin: 0 auto;
 `
 
