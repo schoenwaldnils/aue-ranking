@@ -20,7 +20,7 @@ export const getWinnerData = async (): Promise<{ team?: Team }> => {
     '1dhviQAHF92P4_5vp0adUHpI2I2tupNmLsXc66Ckn2lE',
   )
 
-  doc.useApiKey(process.env.GOOGLE_API_KEY)
+  doc.useApiKey(process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
 
   await doc.loadInfo()
 
@@ -95,11 +95,7 @@ export const getWinnerData = async (): Promise<{ team?: Team }> => {
     return team
   })
 
-  console.log(teams)
-
   const winnerTeam = teams.find((i) => i.teamName === winnerTeamName)
-
-  console.log(winnerTeam)
 
   if (winnerTeam) {
     return {

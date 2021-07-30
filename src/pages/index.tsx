@@ -1,31 +1,47 @@
 import styled from '@emotion/styled'
 import { NextPage } from 'next'
 
-import { GlasPane } from '../components/GlasPane'
-import { h3Styles, Link } from '../components/Typography'
-import { View } from '../components/View'
+import { TextButton } from '../components/Button'
+import { Link } from '../components/Typography'
+import { useUser } from '../hooks/useUser'
 
-const StyledLink = styled(Link)`
-  display: block;
-  ${h3Styles}
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  font-size: 1rem;
 `
 
 const IndexPage: NextPage = () => {
+  const { user, logout } = useUser()
+
   return (
-    <View>
-      <GlasPane>
-        <StyledLink href="/regular">Reg Season</StyledLink>
-        <StyledLink href="/standings">Standings</StyledLink>
-        <StyledLink href="/playoffs">PlayOffs</StyledLink>
-        <StyledLink href="/brackets">Brackets - Overview</StyledLink>
-        <StyledLink href="/brackets/winner">Brackets - Winner</StyledLink>
-        <StyledLink href="/brackets/loser">Brackets - Loser</StyledLink>
-        <StyledLink href="/brackets/final">Brackets - Final</StyledLink>
-        <StyledLink href="/overlay/banner">Banner</StyledLink>
-        <StyledLink href="/overlay/abspann">Abspann</StyledLink>
-        <StyledLink href="/winner">Winner</StyledLink>
-      </GlasPane>
-    </View>
+    <List>
+      <Link href="/regular">Reg Season</Link>
+      <Link href="/standings">Standings</Link>
+      <Link href="/playoffs">PlayOffs</Link>
+      <Link href="/brackets">Brackets - Overview</Link>
+      <Link href="/brackets/winner">Brackets - Winner</Link>
+      <Link href="/brackets/loser">Brackets - Loser</Link>
+      <Link href="/brackets/final">Brackets - Final</Link>
+      <Link href="/overlay/banner">Banner</Link>
+      <Link href="/overlay/abspann">Abspann</Link>
+      <Link href="/winner">Winner</Link>
+
+      <br />
+
+      {!user ? (
+        <Link href="/auth">Login</Link>
+      ) : (
+        <>
+          <Link href="/player">Player</Link>
+
+          <br />
+
+          <TextButton onClick={logout}>Logout</TextButton>
+        </>
+      )}
+    </List>
   )
 }
 

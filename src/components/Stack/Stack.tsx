@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 const StackContainer = styled.div<{ amount: number }>`
   > * + * {
-    margin-top: ${(p) => p.amount}rem;
+    margin-top: ${(p) => p.amount}rem !important;
   }
 `
 

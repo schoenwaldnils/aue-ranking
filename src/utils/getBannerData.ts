@@ -20,7 +20,7 @@ export const getBannerData = async (): Promise<{
     '1dhviQAHF92P4_5vp0adUHpI2I2tupNmLsXc66Ckn2lE',
   )
 
-  doc.useApiKey(process.env.GOOGLE_API_KEY)
+  doc.useApiKey(process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
 
   await doc.loadInfo()
 
