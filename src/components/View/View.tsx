@@ -37,6 +37,7 @@ const Content = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  color: ${colors.white};
 
   > * {
     flex-grow: 1;

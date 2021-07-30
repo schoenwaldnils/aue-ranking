@@ -20,7 +20,7 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
 
-  ${stack(1)}
+  ${stack(3)}
 `
 
 const PlayerPage: NextPage = () => {

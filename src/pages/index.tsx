@@ -8,6 +8,7 @@ import { useUser } from '../hooks/useUser'
 const List = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   margin: 2rem;
   font-size: 1rem;
 `

@@ -1,51 +1,44 @@
+import { IconButton } from '@contentful/forma-36-react-components'
 import styled from '@emotion/styled'
+import Image from 'next/image'
 import { FC } from 'react'
-import { IoMdTrash } from 'react-icons/io'
 
 import { Player } from '../../@types/Player'
+import { colors } from '../../data/colors'
 import { useDB } from '../../hooks/useDB'
+// import { IconButton } from '../IconButton'
 import { PlayerForm } from '../PlayerForm'
 
-const PlayerItem = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr auto auto auto auto;
-  gap: 1rem;
-  align-items: center;
-  line-height: 1;
-
-  a,
-  img {
-    display: block;
+const Tracking = styled.a`
+  &,
+  &:visited {
+    color: inherit;
   }
 `
 
-const Delete = styled.div`
-  position: relative;
-  padding: 0.5em;
-  color: indianred;
-  cursor: pointer;
-  line-height: 1;
+const Avatar = styled(Image)`
+  border-radius: 0.25rem;
+`
 
-  ::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 0;
-    border-radius: 0.5em;
-    transition: opacity 150ms;
-    background-color: rgba(255, 255, 255, 0.1);
-  }
+const RewardImg = styled(Image)`
+  padding: 0.25rem;
+  background-color: ${colors.almostblack};
+  border-radius: 0.25rem;
+`
 
-  :hover::before {
-    opacity: 1;
-  }
+const Playlists = styled.div`
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background-color: ${colors.almostblack};
+  border-radius: 0.25rem;
+`
 
-  > svg {
-    display: block;
-  }
+const Playlist = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 `
 
 export const PlayersListItem: FC<Player> = (player) => {
@@ -53,50 +46,45 @@ export const PlayersListItem: FC<Player> = (player) => {
 
   return (
     <>
-      <PlayerItem key={player.id}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={player.avatar || 'http://www.fillmurray.com/184/184'}
-          alt={player.name}
-          width={80}
-          height={80}
-        />
+      <Tracking href={player.trackingLink || null} target="_blank">
+        <IconButton iconProps={{ icon: 'Link', size: 'medium' }} />
+      </Tracking>
 
-        <div>{player.name}</div>
+      <Avatar
+        src={player.avatar || 'http://www.fillmurray.com/184/184'}
+        alt={player.name}
+        width={80}
+        height={80}
+      />
 
-        <div>
-          {player.trackingLink && (
-            <a href={player.trackingLink} target="_blank">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://rocketleague.tracker.network/public/icons/tile310.png"
-                alt="TRN Tracker Network"
-                width={80}
-                height={80}
-              />
-            </a>
-          )}
-        </div>
+      <div>{player.name}</div>
 
-        <div>
-          {player.rank && (
-            <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`https://trackercdn.com/cdn/tracker.gg/rocket-league/ranks/s4-${player.rank}.png`}
-                alt="Rank"
-                width={80}
-                height={80}
-              />
-            </>
-          )}
-        </div>
+      <div>
+        {player.seasonRewardImg && (
+          <RewardImg
+            src={player.seasonRewardImg}
+            alt="Rank"
+            width={80}
+            height={80}
+          />
+        )}
+      </div>
 
-        <Delete onClick={() => deletePlayer(player.id)}>
-          <IoMdTrash />
-        </Delete>
-        <PlayerForm player={player} />
-      </PlayerItem>
+      <Playlists>
+        {player.playlists &&
+          player.playlists.slice(1, player.playlists.length).map((p) => (
+            <Playlist key={p.name}>
+              <Image src={p.icon} alt="Rank" width={32} height={32} />
+            </Playlist>
+          ))}
+      </Playlists>
+
+      <IconButton
+        onClick={() => deletePlayer(player.id)}
+        buttonType="negative"
+        iconProps={{ icon: 'Delete', size: 'medium' }}
+      />
+      <PlayerForm player={player} />
     </>
   )
 }

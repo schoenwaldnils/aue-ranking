@@ -1,59 +1,22 @@
-import styled from '@emotion/styled'
-import { MenuItem, OutlinedTextFieldProps, TextField } from '@material-ui/core'
-import { FC, forwardRef } from 'react'
-
-import { materialUiInputStyles } from '../materialUiInputStyles'
-
-const StyledTextField = styled(TextField)<{ secondary: boolean }>`
-  ${(p) => materialUiInputStyles(p.secondary)}
-`
+import {
+  Option,
+  SelectField,
+  SelectFieldProps,
+} from '@contentful/forma-36-react-components'
+import { FC } from 'react'
 
 export const Select: FC<
-  Omit<OutlinedTextFieldProps, 'variant'> & {
-    id: string
+  Omit<SelectFieldProps, 'children'> & {
     options: { label: string; value: string }[]
-    showNone?: boolean
-    secondary?: boolean
   }
-> = forwardRef(
-  (
-    {
-      id,
-      label,
-      value,
-      options,
-      size = 'small',
-      showNone = true,
-      secondary = false,
-      ...props
-    },
-    ref,
-  ) => {
-    return (
-      <StyledTextField
-        ref={ref}
-        id={id}
-        select
-        label={label}
-        size={size}
-        value={value}
-        fullWidth
-        secondary={secondary || undefined}
-        {...props}
-      >
-        {showNone && (
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-        )}
-        {options.map((i) => (
-          <MenuItem value={i.value} selected={i.value === value} key={i.value}>
-            {i.label}
-          </MenuItem>
-        ))}
-      </StyledTextField>
-    )
-  },
-)
-
-Select.displayName = 'Select'
+> = ({ id, name = id, value, options, ...props }) => {
+  return (
+    <SelectField id={id} name={name} value={value} {...props}>
+      {options.map((i) => (
+        <Option value={i.value} selected={i.value === value} key={i.value}>
+          {i.label}
+        </Option>
+      ))}
+    </SelectField>
+  )
+}

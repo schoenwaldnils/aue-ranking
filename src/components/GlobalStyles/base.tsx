@@ -27,9 +27,9 @@ export const base = css`
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: ${colors.white};
+    color: ${colors.almostblack};
     text-rendering: optimizeLegibility;
-    background-color: ${colors.almostblack};
+    background-color: ${colors.white};
   }
 
   /* textarea:focus,

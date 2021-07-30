@@ -1,9 +1,8 @@
+import { Button, Modal } from '@contentful/forma-36-react-components'
 import styled from '@emotion/styled'
-import { Button } from '@material-ui/core'
 import { FC, useCallback, useState } from 'react'
 
 import { stack } from '../../utils/mixins'
-import { Modal } from '../Modal'
 
 const AreYouSureContainer = styled.div`
   display: flex;
@@ -41,14 +40,14 @@ export const AreYouSure: FC<{
   }, [onCancel])
 
   return (
-    <Modal open={open} handleClose={handleClose}>
+    <Modal isShown={open} onClose={handleClose}>
       <AreYouSureContainer>
         Are you sure?
         <ButtonsWrapper>
-          <Button variant="outlined" onClick={handleConfirm}>
+          <Button onClick={handleConfirm} buttonType="negative">
             No
           </Button>
-          <Button variant="contained" onClick={handleClose}>
+          <Button onClick={handleClose} buttonType="positive">
             Yes
           </Button>
         </ButtonsWrapper>

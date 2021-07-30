@@ -1,3 +1,5 @@
+import '@contentful/forma-36-react-components/dist/styles.css'
+
 import { Global } from '@emotion/react'
 import { FC } from 'react'
 
