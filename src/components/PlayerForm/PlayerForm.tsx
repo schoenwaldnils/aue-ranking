@@ -99,7 +99,6 @@ export const PlayerForm: FC<{ player?: Player }> = ({ player }) => {
               textInputProps={{ width: 'full', error: !!errors.platformId }}
               {...register('platformId', {
                 required: true,
-                pattern: /^[0-9]+$/,
               })}
             />
 

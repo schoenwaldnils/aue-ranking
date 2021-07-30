@@ -2,11 +2,11 @@ import styled from '@emotion/styled'
 import { FC } from 'react'
 
 import { Player } from '../../@types/Player'
-import { PlayersListItem } from '../PlayersListItem'
+import { PlayersListItem, showPlaylists } from '../PlayersListItem'
 
 const PlayersListContainer = styled.div`
   display: grid;
-  grid-template-columns: auto auto 1fr auto auto auto auto;
+  grid-template-columns: auto auto auto 1fr auto auto auto auto;
   gap: 1rem;
   align-items: center;
   line-height: 1;
@@ -29,7 +29,7 @@ const PlaylistLabel = styled.div`
   font-size: 0.5rem;
   writing-mode: vertical-rl;
   text-orientation: sideways;
-  transform: rotate(180deg);
+  transform: rotate(180deg) translate(-1.75rem, -1rem) rotate(45deg);
 `
 
 export const PlayersList: FC<{ players: Player[] }> = ({ players }) => {
@@ -39,10 +39,13 @@ export const PlayersList: FC<{ players: Player[] }> = ({ players }) => {
       <div />
       <div />
       <div />
+      <div />
       <Playlists>
-        {players[0].playlists.slice(1, players[0].playlists.length).map((p) => (
-          <PlaylistLabel key={p.name}>{p.name}</PlaylistLabel>
-        ))}
+        {players[0].playlists
+          .filter((p) => showPlaylists.includes(p.name))
+          .map((p) => (
+            <PlaylistLabel key={p.name}>{p.name}</PlaylistLabel>
+          ))}
       </Playlists>
       <div />
       <div />

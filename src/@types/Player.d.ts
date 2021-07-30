@@ -19,6 +19,7 @@ export type Player = {
   trackingLink?: string
   trackingData?: TrackingData
 
+  platform?: string
   seasonPercentile?: number
   seasonReward?: string
   seasonRewardLevel?: number

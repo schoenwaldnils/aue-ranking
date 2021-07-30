@@ -1,5 +1,10 @@
 module.exports = {
   images: {
-    domains: ['steamcdn-a.akamaihd.net', 'trackercdn.com'],
+    domains: [
+      'images-eds-ssl.xboxlive.com',
+      'steamcdn-a.akamaihd.net',
+      'avatar-cdn.tracker.gg',
+      'trackercdn.com',
+    ],
   },
 }

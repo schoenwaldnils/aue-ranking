@@ -13,7 +13,10 @@ export const getDataFromTracking = (data: TrackingData): Partial<Player> => {
   const seasonReward = overview.stats.seasonRewardLevel
 
   return {
-    avatar: data.overview.platformInfo.avatarUrl,
+    avatar:
+      data.overview.platformInfo.avatarUrl ||
+      'https://trackercdn.com/cdn/rocketleague.tracker.network/images/defaultAvatar.jpg',
+    platform: data.overview.platformInfo.platformSlug,
     seasonPercentile: seasonReward.percentile,
     seasonRewardLevel: seasonReward.value,
     seasonReward: seasonReward.metadata.rankName,
