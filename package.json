@@ -30,7 +30,7 @@
     "@contentful/forma-36-react-components": "3.93.5",
     "@emotion/react": "11.4.0",
     "@emotion/styled": "11.3.0",
-    "@types/node": "15.12.4",
+    "@types/node": "16.4.8",
     "@types/react": "17.0.11",
     "cookie": "0.4.1",
     "date-fns": "2.22.1",
