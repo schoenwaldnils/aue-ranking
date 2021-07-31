@@ -5,7 +5,6 @@ import {
   Form,
   IconButton,
   Modal,
-  TextField,
 } from '@contentful/forma-36-react-components'
 import styled from '@emotion/styled'
 import qs from 'qs'
@@ -16,6 +15,7 @@ import { Player } from '../../@types/Player'
 import { platforms } from '../../data/platforms'
 import { db } from '../../utils/firebase'
 import { Select } from '../Form'
+import { TextField } from '../Form/TextField'
 
 const ButtonContainer = styled(Flex)`
   gap: 1rem;
@@ -78,7 +78,11 @@ export const PlayerForm: FC<{ player?: Player }> = ({ player }) => {
             <TextField
               id="name"
               labelText="Name"
-              textInputProps={{ width: 'full', error: !!errors.name }}
+              textInputProps={{
+                defaultValue: player?.name || '',
+                width: 'full',
+                error: !!errors.name,
+              }}
               {...register('name', { required: true })}
             />
 
@@ -89,65 +93,35 @@ export const PlayerForm: FC<{ player?: Player }> = ({ player }) => {
                 label: platform,
                 value: key,
               }))}
-              selectProps={{ width: 'full', hasError: !!errors.platform }}
+              selectProps={{
+                value: player?.platform || Object.keys(platforms)[0],
+                width: 'full',
+                hasError: !!errors.platform,
+              }}
               {...register('platform', { required: true })}
             />
 
             <TextField
               id="platformId"
               labelText="ID"
-              textInputProps={{ width: 'full', error: !!errors.platformId }}
+              textInputProps={{
+                defaultValue: player?.platformId || '',
+                width: 'full',
+                error: !!errors.platformId,
+              }}
               {...register('platformId', {
                 required: true,
               })}
             />
 
-            {/* <Horizontal>
-                <Controller
-                  name="rank"
-                  control={control}
-                  defaultValue={player?.rank || ''}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <Select
-                      id="rankLevel"
-                      label="Rank"
-                      showNone={false}
-                      options={ranks.map((rank, key) => ({
-                        label: rank,
-                        value: (key + 1).toString(),
-                      }))}
-                      error={errors.rank}
-                      {...field}
-                    />
-                  )}
-                />
-
-                <Controller
-                  name="rankDevision"
-                  control={control}
-                  defaultValue={player?.rankDevision || ''}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <Select
-                      id="rankDevision"
-                      label="Devision"
-                      showNone={false}
-                      options={devisions.map((level) => ({
-                        label: level.toString(),
-                        value: level.toString(),
-                      }))}
-                      error={errors.rankDevision}
-                      {...field}
-                    />
-                  )}
-                />
-              </Horizontal> */}
-
             <TextField
               id="playtime"
               labelText="Playtime (h)"
-              textInputProps={{ width: 'full', error: !!errors.playtime }}
+              textInputProps={{
+                defaultValue: player?.playtime || '',
+                width: 'full',
+                error: !!errors.playtime,
+              }}
               {...register('playtime', {
                 required: true,
                 pattern: /^[0-9]+$/,

@@ -11,9 +11,15 @@ export const Select: FC<
   }
 > = ({ id, name = id, value, options, ...props }) => {
   return (
-    <SelectField id={id} name={name} value={value} {...props}>
+    <SelectField
+      id={id}
+      name={name}
+      value={value}
+      {...props}
+      selectProps={{ ...props.selectProps }}
+    >
       {options.map((i) => (
-        <Option value={i.value} selected={i.value === value} key={i.value}>
+        <Option value={i.value} key={i.value}>
           {i.label}
         </Option>
       ))}
