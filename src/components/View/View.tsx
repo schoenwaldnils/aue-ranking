@@ -48,11 +48,12 @@ export const View: FC<{ isHd?: boolean; hideBackground?: boolean }> = ({
   isHd = true,
   hideBackground,
   children,
+  ...props
 }) => {
   const ViewDiv = isHd ? ViewHD : ViewFree
 
   return (
-    <ViewDiv>
+    <ViewDiv {...props}>
       {!hideBackground && <Background />}
       <Content>{children}</Content>
     </ViewDiv>

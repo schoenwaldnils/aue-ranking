@@ -27,6 +27,7 @@ const IndexPage: NextPage = () => {
       <Link href="/brackets/final">Brackets - Final</Link>
       <Link href="/overlay/banner">Banner</Link>
       <Link href="/overlay/abspann">Abspann</Link>
+      <Link href="/overlay/abspann-static">Abspann statisch</Link>
       <Link href="/winner">Winner</Link>
 
       <br />
