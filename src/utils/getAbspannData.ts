@@ -28,8 +28,8 @@ export const getAbspannData = async (): Promise<{
   const texts = Array.apply(null, Array(606)).map((value, index) => {
     const rowIndex = index
 
-    const left = sheet.getCell(rowIndex, 0).value
-    const right = sheet.getCell(rowIndex, 1).value
+    const left = sheet.getCell(rowIndex, 0).formattedValue
+    const right = sheet.getCell(rowIndex, 1).formattedValue
 
     // const leftFormated = sheet.getCell(rowIndex, 0).formattedValue
     // const rightFormated = sheet.getCell(rowIndex, 1).formattedValue
@@ -41,25 +41,25 @@ export const getAbspannData = async (): Promise<{
       text.left = left
     }
 
-    if (typeof left === 'number') {
-      if (isFloat(left)) {
-        text.left = left.toFixed(1)
-      } else {
-        text.left = left.toString()
-      }
-    }
+    // if (typeof left === 'number') {
+    //   if (isFloat(left)) {
+    //     text.left = left.toFixed(1)
+    //   } else {
+    //     text.left = left.toString()
+    //   }
+    // }
 
     if (typeof right === 'string') {
       text.right = right
     }
 
-    if (typeof right === 'number') {
-      if (isFloat(right)) {
-        text.right = right.toFixed(1)
-      } else {
-        text.right = right.toString()
-      }
-    }
+    // if (typeof right === 'number') {
+    //   if (isFloat(right)) {
+    //     text.right = right.toFixed(1)
+    //   } else {
+    //     text.right = right.toString()
+    //   }
+    // }
 
     return text
   })
