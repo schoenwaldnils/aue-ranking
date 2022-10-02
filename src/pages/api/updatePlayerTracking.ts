@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import { db } from '../../utils/firebase'
 
-const baseURL = 'http://localhost:3456'
+const baseURL = process.env.BASE_URL || 'http://localhost:3456'
 
 export default async (
   req: NextApiRequest,
