@@ -1,6 +1,6 @@
 import { css, keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
-import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 
 const Container = styled.div`
   position: relative;
@@ -28,7 +28,7 @@ const ScrollDiv = styled.div<{ animationDuration: number }>`
   ${(p) => p.animationDuration && animation(p.animationDuration)}
 `
 
-export const Scroll: FC<{ pixelPerSecond?: number }> = ({
+export const Scroll: FC<{ pixelPerSecond?: number; children: ReactNode }> = ({
   children,
   pixelPerSecond = 70,
 }) => {

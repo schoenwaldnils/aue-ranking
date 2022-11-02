@@ -1,9 +1,9 @@
-import { FC, useReducer } from 'react'
+import { FC, ReactNode, useReducer } from 'react'
 
 import { reducer } from './reducer'
 import { initialState, StoreContext } from './Store'
 
-export const StoreProvider: FC = ({ children }) => {
+export const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [store, dispatch] = useReducer(reducer, {
     ...initialState,
   })

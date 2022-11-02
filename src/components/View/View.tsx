@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import { colors } from '../../data/colors'
 
@@ -44,12 +44,11 @@ const Content = styled.div`
   }
 `
 
-export const View: FC<{ isHd?: boolean; hideBackground?: boolean }> = ({
-  isHd = true,
-  hideBackground,
-  children,
-  ...props
-}) => {
+export const View: FC<{
+  isHd?: boolean
+  hideBackground?: boolean
+  children: ReactNode
+}> = ({ isHd = true, hideBackground, children, ...props }) => {
   const ViewDiv = isHd ? ViewHD : ViewFree
 
   return (

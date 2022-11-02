@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 const StackContainer = styled.div<{ amount: number }>`
   > * + * {
@@ -7,6 +7,9 @@ const StackContainer = styled.div<{ amount: number }>`
   }
 `
 
-export const Stack: FC<{ amount?: number }> = ({ amount = 1, children }) => {
+export const Stack: FC<{ amount?: number; children: ReactNode }> = ({
+  amount = 1,
+  children,
+}) => {
   return <StackContainer amount={amount}>{children}</StackContainer>
 }
