@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { NextPage } from 'next'
-import qs from 'qs'
-import { useEffect, useState } from 'react'
+import qs, { ParsedQs } from 'qs'
+import { useEffect, useMemo, useState } from 'react'
 
 const Box = styled.div`
   width: 100vw;
@@ -25,21 +25,23 @@ const Name = styled.div`
 
 const Single: NextPage = () => {
   const [loading, setLoading] = useState(true)
-  const [params, setParams] = useState<Record<string, unknown>>()
+  const [params, setParams] = useState<ParsedQs>()
 
   useEffect(() => {
     setLoading(false)
     setParams(qs.parse(window.location.search, { ignoreQueryPrefix: true }))
   }, [])
 
-  if (loading || !params) {
+  const name = useMemo(() => params?.name as string, [params?.name])
+
+  if (loading || !name) {
     return <div>loading ...</div>
   }
 
   return (
     <Box>
       <Frame />
-      <Name>{params.name}</Name>{' '}
+      <Name>{name}</Name>
     </Box>
   )
 }
