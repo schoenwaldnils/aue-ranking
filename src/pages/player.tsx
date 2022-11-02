@@ -5,7 +5,7 @@ import React from 'react'
 import { LoadingPage } from '../components/LoadingSpinner'
 import { PlayerForm } from '../components/PlayerForm'
 import { PlayersList } from '../components/PlayersList'
-import { useDB } from '../hooks/useDB'
+import { usePlayers } from '../hooks/useDB'
 import { stack } from '../utils/mixins'
 
 const Page = styled.div`
@@ -24,7 +24,7 @@ const Content = styled.div`
 `
 
 const PlayerPage: NextPage = () => {
-  const { players, playersLoading } = useDB()
+  const { players, playersLoading } = usePlayers()
 
   if (playersLoading) {
     return <LoadingPage />

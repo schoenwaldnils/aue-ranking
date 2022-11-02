@@ -2,9 +2,9 @@ import { GoogleSpreadsheet } from 'google-spreadsheet'
 
 export type TextRow = { left?: string; right?: string }
 
-const isFloat = (n: number) => {
-  return Number(n) === n && n % 1 !== 0
-}
+// const isFloat = (n: number) => {
+//   return Number(n) === n && n % 1 !== 0
+// }
 
 export const getAbspannData = async (): Promise<{
   texts: TextRow[]

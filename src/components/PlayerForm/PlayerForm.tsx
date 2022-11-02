@@ -8,12 +8,12 @@ import {
 } from '@contentful/forma-36-react-components'
 import styled from '@emotion/styled'
 import qs from 'qs'
-import { FC, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Player } from '../../@types/Player'
+import type { Player } from '../../@types/Player'
 import { platforms } from '../../data/platforms'
-import { db } from '../../utils/firebase'
+import { addPlayer, updatePlayer } from '../../hooks/useDB'
 import { Select } from '../Form'
 import { TextField } from '../Form/TextField'
 
@@ -31,31 +31,37 @@ export const PlayerForm: FC<{ player?: Player }> = ({ player }) => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = async (data) => {
-    const dataFromated: Player = {
-      ...data,
-      playtime: parseInt(data.playtime, 10) || 0,
-    }
+  const onSubmit = useCallback(
+    async (data) => {
+      const dataFromated: Player = {
+        ...data,
+        playtime: parseInt(data.playtime, 10) || 0,
+      }
 
-    const doc = db.collection('players').doc(player?.id || undefined)
-    await doc.set(dataFromated, { merge: true })
+      if (player?.id) {
+        await updatePlayer(player?.id, dataFromated)
+      } else {
+        await addPlayer(dataFromated)
+      }
 
-    if (!player && data.platform && data.platformId) {
-      await fetch(
-        `${window.location.protocol}//${
-          window.location.host
-        }/api/updatePlayerTracking?${qs.stringify({
-          platform: data.platform,
-          id: data.platformId,
-          memberId: doc.id,
-        })}`,
-      )
-    }
+      if (!player && data.platform && data.platformId) {
+        await fetch(
+          `${window.location.protocol}//${
+            window.location.host
+          }/api/updatePlayerTracking?${qs.stringify({
+            platform: data.platform,
+            id: data.platformId,
+            memberId: player?.id,
+          })}`,
+        )
+      }
 
-    reset()
-    setOpen(false)
-    // console.log(data)
-  }
+      reset()
+      setOpen(false)
+      // console.log(data)
+    },
+    [player, reset],
+  )
 
   return (
     <>

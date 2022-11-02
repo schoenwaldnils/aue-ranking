@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import { depthStyles, Headline1, Headline3 } from '../Typography'
 
@@ -39,11 +39,11 @@ const Subtitle = styled(Headline3)`
   ${depthStyles}
 `
 
-export const GlasPane: FC<{ title?: string; subtitle?: string }> = ({
-  title,
-  subtitle,
-  children,
-}) => {
+export const GlasPane: FC<{
+  title?: string
+  subtitle?: string
+  children: ReactNode
+}> = ({ title, subtitle, children }) => {
   return (
     <Glas>
       <Pane />

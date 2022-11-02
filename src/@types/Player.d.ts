@@ -1,5 +1,4 @@
-import { Team } from './Team'
-import { TrackingData } from './TrackingData'
+import type { TrackingData } from './TrackingData'
 
 export type FirebasePlayer = {
   id: string
@@ -7,7 +6,7 @@ export type FirebasePlayer = {
   platform: string
   platformId: string
   playtime: number
-  trackingData?: unknown
+  trackingData?: string
 }
 
 export type Player = {
@@ -16,10 +15,9 @@ export type Player = {
   playtime: number
   platform: string
   platformId: string
+
   trackingLink?: string
   trackingData?: TrackingData
-
-  platform?: string
   seasonPercentile?: number
   seasonReward?: string
   seasonRewardLevel?: number
@@ -32,5 +30,4 @@ export type Player = {
   }[]
 
   avatar?: string
-  team?: Team
 }

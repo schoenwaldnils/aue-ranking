@@ -1,11 +1,9 @@
-import firebase from 'firebase/app'
-
-import { Player } from './Player'
+import type { Player } from './Player'
 
 export type FirebaseTeam = {
   id?: string
   name: string
-  members?: firebase.firestore.DocumentReference[]
+  members?: DocumentReference[]
 }
 
 export type Team = {

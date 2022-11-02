@@ -1,4 +1,4 @@
-import { Overview } from './TrackingDataOverview'
+import type { Overview } from './TrackingDataOverview'
 
 export interface TrackingData {
   overview: Overview

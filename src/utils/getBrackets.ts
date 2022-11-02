@@ -1,11 +1,11 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet'
-import { RoundProps } from 'react-brackets'
+import type { IRoundProps } from 'react-brackets'
 
 export const getBrackets = async (): Promise<{
-  winnerBracket: RoundProps[]
-  winnerBracketPlusFinal: RoundProps[]
-  loserBracket: RoundProps[]
-  finalBracket: RoundProps[]
+  winnerBracket: IRoundProps[]
+  winnerBracketPlusFinal: IRoundProps[]
+  loserBracket: IRoundProps[]
+  finalBracket: IRoundProps[]
 }> => {
   // Initialize the sheet - doc ID is the long id in the sheets URL
   const doc = new GoogleSpreadsheet(
@@ -22,7 +22,7 @@ export const getBrackets = async (): Promise<{
 
   const getTeam = (row: number, column: number, isFinal = false) => {
     const team = {
-      name: sheet.getCell(row, column).value,
+      name: sheet.getCell(row, column).value as string,
       games: [
         sheet.getCell(row + 1, column).value,
         sheet.getCell(row + 3, column).value,
@@ -38,7 +38,7 @@ export const getBrackets = async (): Promise<{
     return team
   }
 
-  const winnerBracket: RoundProps[] = [
+  const winnerBracket: IRoundProps[] = [
     {
       title: null,
       seeds: [
@@ -84,7 +84,7 @@ export const getBrackets = async (): Promise<{
     },
   ]
 
-  const loserBracket: RoundProps[] = [
+  const loserBracket: IRoundProps[] = [
     {
       title: null,
       seeds: [
