@@ -12,8 +12,7 @@ import {
 
 import { Player } from '../../@types/Player'
 import { colors } from '../../data/colors'
-import { useDB } from '../../hooks/useDB'
-// import { IconButton } from '../IconButton'
+import { deletePlayer } from '../../hooks/useDB'
 import { PlayerForm } from '../PlayerForm'
 
 const platformIcons = {
@@ -63,8 +62,6 @@ const Playlist = styled.div`
 `
 
 export const PlayersListItem: FC<Player> = (player) => {
-  const { deletePlayer } = useDB()
-
   const PlatformIcon = platformIcons[player.platform]
 
   return (

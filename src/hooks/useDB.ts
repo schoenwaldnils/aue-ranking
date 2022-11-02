@@ -1,7 +1,7 @@
 import type { FirebaseError } from 'firebase/app'
 import type { FirestoreDataConverter } from 'firebase/firestore'
 import { collection, deleteDoc, doc } from 'firebase/firestore'
-import { useCallback } from 'react'
+import { useMemo } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 import { FirebasePlayer, Player } from '../@types/Player'
@@ -9,11 +9,13 @@ import { FirebaseTeam, Team } from '../@types/Team'
 import { db } from '../utils/firebase'
 import { getDataFromTracking } from '../utils/getDataFromTracking'
 
-type Return = {
+type ReturnPlayers = {
   players: Player[]
   playersLoading: boolean
   playersError: FirebaseError
-  deletePlayer: (id: string) => void
+}
+
+type ReturnTeams = {
   teams: Team[]
   teamsLoading: boolean
   teamsError: FirebaseError
@@ -54,6 +56,31 @@ const playerConverter: FirestoreDataConverter<Player> = {
   },
 }
 
+export const usePlayers = (): ReturnPlayers => {
+  const [players, playersLoading, playersError] = useCollectionData<Player>(
+    collection(db, 'players').withConverter(playerConverter),
+  )
+
+  const mappedPlayers = useMemo(
+    () =>
+      players
+        ? players.sort(
+            (a, b) =>
+              b.seasonRewardLevel * 10 +
+              b.seasonPercentile / 100 -
+              (a.seasonRewardLevel * 10 + a.seasonPercentile / 100),
+          )
+        : [],
+    [players],
+  )
+
+  return {
+    players: mappedPlayers,
+    playersLoading,
+    playersError,
+  }
+}
+
 const teamConverter = (players: Player[]): FirestoreDataConverter<Team> => ({
   toFirestore: (team: Team) => team,
   fromFirestore: (snapshot, options) => {
@@ -67,37 +94,19 @@ const teamConverter = (players: Player[]): FirestoreDataConverter<Team> => ({
   },
 })
 
-export const useDB = (): Return => {
-  const [players, playersLoading, playersError] = useCollectionData<Player>(
-    collection(db, 'players').withConverter(playerConverter),
-  )
+export const useTeams = (): ReturnTeams => {
+  const { players } = usePlayers()
 
   const [teams, teamsLoading, teamsError] = useCollectionData<Team>(
     collection(db, 'teams').withConverter(teamConverter(players)),
   )
 
-  const deletePlayer = useCallback(
-    (id: string) => deleteDoc(doc(db, 'players', id)),
-    [],
-  )
-
   return {
-    players: players
-      ?.map((i) => ({
-        ...i,
-        team: teams?.find((t) => t.members.map((m) => m?.id).includes(i.id)),
-      }))
-      .sort(
-        (a, b) =>
-          b.seasonRewardLevel * 10 +
-          b.seasonPercentile / 100 -
-          (a.seasonRewardLevel * 10 + a.seasonPercentile / 100),
-      ),
-    playersLoading,
-    playersError,
-    deletePlayer,
     teams,
     teamsLoading,
     teamsError,
   }
 }
+
+export const deletePlayer = (id: string): Promise<void> =>
+  deleteDoc(doc(db, 'players', id))
