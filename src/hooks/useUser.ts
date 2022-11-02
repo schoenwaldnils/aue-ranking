@@ -1,10 +1,9 @@
-import 'firebase/auth'
-
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import { UserType } from '../@types/User.d'
-import firebase from '../utils/firebase'
+import { auth, googleProvider } from '../utils/firebase'
 import { mapUserData } from '../utils/mapUserData'
 import {
   getUserFromCookie,
@@ -15,19 +14,43 @@ import {
 type Return = {
   user: UserType
   logout: () => void
+  login: () => void
 }
 
-const useUser = (): Return => {
+export const useUser = (): Return => {
   const [user, setUser] = useState<UserType | undefined>()
   const router = useRouter()
 
+  const login = async () => {
+    googleProvider.setCustomParameters({ prompt: 'select_account' })
+
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result)
+        const token = credential.accessToken
+        setUser(mapUserData(result.user, token))
+        setUserCookie(mapUserData(result.user, token))
+      })
+      .catch((error) => {
+        console.error(error)
+        // // Handle Errors here.
+        // const errorCode = error.code
+        // const errorMessage = error.message
+        // // The email of the user's account used.
+        // const email = error.email
+        // // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error)
+        // // ...
+      })
+  }
+
   const logout = async () => {
-    return firebase
-      .auth()
+    return auth
       .signOut()
       .then(() => {
         // Sign-out successful.
-        router.push('/auth')
+        removeUserCookie()
+        router.push('/')
       })
       .catch((e) => {
         console.error(e)
@@ -35,37 +58,16 @@ const useUser = (): Return => {
   }
 
   useEffect(() => {
-    // Firebase updates the id token every hour, this
-    // makes sure the react state and the cookie are
-    // both kept up to date
-    const cancelAuthListener = firebase
-      .auth()
-      .onIdTokenChanged(async (fireUser) => {
-        if (fireUser) {
-          const userData = await mapUserData(fireUser)
-          setUserCookie(userData)
-          setUser(userData)
-        } else {
-          removeUserCookie()
-          setUser(undefined)
-        }
-      })
-
     const userFromCookie = getUserFromCookie()
+
     if (!userFromCookie) {
       router.push('/')
       return
     }
-    setUser(userFromCookie)
 
-    // eslint-disable-next-line consistent-return
-    return () => {
-      cancelAuthListener()
-    }
+    setUser(userFromCookie)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return { user, logout }
+  return { user, login, logout }
 }
-
-export { useUser }

@@ -1,57 +1,83 @@
+import type { FirebaseError } from 'firebase/app'
+import type { FirestoreDataConverter } from 'firebase/firestore'
+import { collection, deleteDoc, doc } from 'firebase/firestore'
 import { useCallback } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 import { FirebasePlayer, Player } from '../@types/Player'
 import { FirebaseTeam, Team } from '../@types/Team'
-import { TrackingData } from '../@types/TrackingData'
-import firebase, { db } from '../utils/firebase'
+import { db } from '../utils/firebase'
 import { getDataFromTracking } from '../utils/getDataFromTracking'
 
 type Return = {
   players: Player[]
   playersLoading: boolean
-  playersError: firebase.FirebaseError
+  playersError: FirebaseError
   deletePlayer: (id: string) => void
   teams: Team[]
   teamsLoading: boolean
-  teamsError: firebase.FirebaseError
+  teamsError: FirebaseError
 }
+
+const playerConverter: FirestoreDataConverter<Player> = {
+  toFirestore: (player: Player) => {
+    const firebasePlayer: FirebasePlayer = {
+      id: player.id,
+      name: player.name,
+      playtime: player.playtime,
+      platform: player.platform,
+      platformId: player.platformId,
+      trackingData: JSON.stringify(player.trackingData),
+    }
+    return firebasePlayer
+  },
+  fromFirestore: (snapshot, options) => {
+    const data = snapshot.data(options) as FirebasePlayer
+
+    let player: Partial<Player> = {
+      id: snapshot.id,
+      name: data.name,
+      playtime: data.playtime,
+      platform: data.platform,
+      platformId: data.platformId,
+    }
+
+    if (data.trackingData) {
+      player = {
+        ...player,
+        ...getDataFromTracking(JSON.parse(data.trackingData)),
+        trackingData: JSON.parse(data.trackingData),
+      }
+    }
+
+    return player as Player
+  },
+}
+
+const teamConverter = (players: Player[]): FirestoreDataConverter<Team> => ({
+  toFirestore: (team: Team) => team,
+  fromFirestore: (snapshot, options) => {
+    const data = snapshot.data(options) as FirebaseTeam
+    const newTeam: Team = {
+      id: data.id,
+      name: data.name,
+      members: data.members.map((m) => players.find((p) => p.id === m.id)),
+    }
+    return newTeam
+  },
+})
 
 export const useDB = (): Return => {
   const [players, playersLoading, playersError] = useCollectionData<Player>(
-    firebase.firestore().collection('players'),
-    {
-      idField: 'id',
-      transform: (p: FirebasePlayer) => {
-        const trackingData =
-          p.trackingData &&
-          (JSON.parse(p.trackingData as string) as TrackingData)
-        return {
-          ...p,
-          trackingLink:
-            p.platform &&
-            p.platformId &&
-            `https://rocketleague.tracker.network/rocket-league/profile/${p.platform}/${p.platformId}`,
-          trackingData,
-          ...getDataFromTracking(trackingData),
-        }
-      },
-    },
+    collection(db, 'players').withConverter(playerConverter),
   )
 
   const [teams, teamsLoading, teamsError] = useCollectionData<Team>(
-    firebase.firestore().collection('teams'),
-    {
-      idField: 'id',
-      transform: (t: FirebaseTeam) => ({
-        ...t,
-        members: t.members.map((m) => players.find((p) => p.id === m.id)),
-      }),
-    },
+    collection(db, 'teams').withConverter(teamConverter(players)),
   )
 
   const deletePlayer = useCallback(
-    (id: string) => db.collection('players').doc(id).delete(),
+    (id: string) => deleteDoc(doc(db, 'players', id)),
     [],
   )
 

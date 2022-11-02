@@ -14,7 +14,7 @@ const List = styled.div`
 `
 
 const IndexPage: NextPage = () => {
-  const { user, logout } = useUser()
+  const { user, login, logout } = useUser()
 
   return (
     <List>
@@ -33,14 +33,14 @@ const IndexPage: NextPage = () => {
       <br />
 
       {!user ? (
-        <Link href="/auth">Login</Link>
+        <TextButton onClick={() => login()}>Login</TextButton>
       ) : (
         <>
           <Link href="/player">Player</Link>
 
           <br />
 
-          <TextButton onClick={logout}>Logout</TextButton>
+          <TextButton onClick={() => logout()}>Logout</TextButton>
         </>
       )}
     </List>

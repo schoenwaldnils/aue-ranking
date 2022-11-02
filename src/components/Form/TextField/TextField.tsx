@@ -1,7 +1,5 @@
-import {
-  TextField as ContentfulTextField,
-  TextFieldProps,
-} from '@contentful/forma-36-react-components'
+import type { TextFieldProps } from '@contentful/forma-36-react-components'
+import { TextField as ContentfulTextField } from '@contentful/forma-36-react-components'
 import { FC, forwardRef, RefObject } from 'react'
 
 export const TextField: FC<TextFieldProps> = forwardRef(

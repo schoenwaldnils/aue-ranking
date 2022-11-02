@@ -29,7 +29,11 @@ export const base = css`
     -moz-osx-font-smoothing: grayscale;
     color: ${colors.almostblack};
     text-rendering: optimizeLegibility;
-    background-color: ${colors.white};
+  }
+
+  html,
+  body {
+    background: none;
   }
 
   /* textarea:focus,

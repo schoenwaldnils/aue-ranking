@@ -1,16 +1,14 @@
-import firebase from 'firebase/app'
+import type { User } from 'firebase/auth'
 
-import { UserType } from '../@types/User.d'
+import type { UserType } from '../@types/User.d'
 
-export const mapUserData = async (user: firebase.User): Promise<UserType> => {
+export const mapUserData = (user: User, token: string): UserType => {
   const { uid, email, photoURL } = user
-
-  const token = await user.getIdToken(true)
 
   return {
     id: uid,
     email,
-    token,
     photoURL,
+    token,
   }
 }

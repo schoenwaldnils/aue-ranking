@@ -33,6 +33,10 @@ const PlaylistLabel = styled.div`
 `
 
 export const PlayersList: FC<{ players: Player[] }> = ({ players }) => {
+  if (!players.length) {
+    return null
+  }
+
   return (
     <PlayersListContainer>
       <div />

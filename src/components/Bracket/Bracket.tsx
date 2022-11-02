@@ -1,10 +1,9 @@
 import styled from '@emotion/styled'
 import Image from 'next/image'
 import { CSSProperties, FC, ReactNode } from 'react'
+import type { IRenderSeedProps, IRoundProps } from 'react-brackets'
 import {
   Bracket as ReactBracket,
-  RenderSeedProps,
-  RoundProps,
   Seed,
   SeedItem,
   SeedTeam,
@@ -79,11 +78,11 @@ const Result = styled.div<{ isWon: boolean; isPlayed?: boolean }>`
   ${gradient}
 `
 
-export const Bracket: FC<{ rounds: RoundProps[]; fontSize?: number }> = ({
+export const Bracket: FC<{ rounds: IRoundProps[]; fontSize?: number }> = ({
   rounds,
   fontSize,
 }) => {
-  const CustomSeed = ({ seed, breakpoint }: RenderSeedProps) => {
+  const CustomSeed = ({ seed, breakpoint }: IRenderSeedProps) => {
     // if (!seed.teams) {
     //   return (
     //     <SingleLineSeed

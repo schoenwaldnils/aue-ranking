@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next'
-import { RoundProps } from 'react-brackets'
+import type { IRoundProps } from 'react-brackets'
 
 import { Bracket } from '../../components/Bracket'
 import { GlasPane } from '../../components/GlasPane'
@@ -17,7 +17,7 @@ const Content = styled.div`
 `
 
 const BracketPage: NextPage<{
-  loserBracket: RoundProps[]
+  loserBracket: IRoundProps[]
 }> = ({ loserBracket }) => {
   useRefresh()
 
