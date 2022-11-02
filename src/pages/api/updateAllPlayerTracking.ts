@@ -1,5 +1,7 @@
+import { collection, getDocs } from '@firebase/firestore'
 import { NextApiRequest, NextApiResponse } from 'next'
 
+import { playerConverter, updateFirebasePlayer } from '../../hooks/useDB'
 import { db } from '../../utils/firebase'
 
 const baseURL = 'http://localhost:3456'
@@ -8,8 +10,10 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> => {
-  const playersRef = await db.collection('players')
-  const snapshot = await playersRef.get()
+  const playersRef = await collection(db, 'players').withConverter(
+    playerConverter,
+  )
+  const snapshot = await getDocs(playersRef)
 
   const allPlayers = []
 
@@ -27,9 +31,13 @@ export default async (
         `${baseURL}/api/tracking?platform=${nextPlayer.platform}&id=${nextPlayer.platformId}&memberId=${nextPlayer.id}`,
       ).then((res) => res.json())
 
-      await playersRef
-        .doc(nextPlayer.id)
-        .set({ trackingData: JSON.stringify(data) }, { merge: true })
+      await updateFirebasePlayer(nextPlayer.id, {
+        trackingData: JSON.stringify(data),
+      })
+
+      await updateFirebasePlayer(nextPlayer.id, {
+        trackingData: JSON.stringify(data),
+      })
       return [...prevData, true]
     } catch (error) {
       res.status(416).end()

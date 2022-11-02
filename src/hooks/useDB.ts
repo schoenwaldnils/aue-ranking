@@ -1,6 +1,16 @@
 import type { FirebaseError } from 'firebase/app'
-import type { FirestoreDataConverter } from 'firebase/firestore'
-import { collection, deleteDoc, doc } from 'firebase/firestore'
+import type {
+  FirestoreDataConverter,
+  PartialWithFieldValue,
+  WithFieldValue,
+} from 'firebase/firestore'
+import {
+  collection,
+  deleteDoc,
+  doc,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore'
 import { useMemo } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
@@ -21,16 +31,15 @@ type ReturnTeams = {
   teamsError: FirebaseError
 }
 
-const playerConverter: FirestoreDataConverter<Player> = {
-  toFirestore: (player: Player) => {
-    const firebasePlayer: FirebasePlayer = {
-      id: player.id,
-      name: player.name,
-      playtime: player.playtime,
-      platform: player.platform,
-      platformId: player.platformId,
-      trackingData: JSON.stringify(player.trackingData),
+export const playerConverter: FirestoreDataConverter<Player> = {
+  toFirestore: (player: PartialWithFieldValue<Player>) => {
+    const firebasePlayer: PartialWithFieldValue<FirebasePlayer> = {
+      ...player,
+      trackingData: player.trackingData
+        ? JSON.stringify(player.trackingData)
+        : '',
     }
+
     return firebasePlayer
   },
   fromFirestore: (snapshot, options) => {
@@ -82,7 +91,7 @@ export const usePlayers = (): ReturnPlayers => {
 }
 
 const teamConverter = (players: Player[]): FirestoreDataConverter<Team> => ({
-  toFirestore: (team: Team) => team,
+  toFirestore: (team: PartialWithFieldValue<Team>) => team,
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options) as FirebaseTeam
     const newTeam: Team = {
@@ -107,6 +116,20 @@ export const useTeams = (): ReturnTeams => {
     teamsError,
   }
 }
+
+export const addPlayer = async (data: Player): Promise<void> =>
+  setDoc(doc(db, 'players'), playerConverter.toFirestore(data))
+
+export const updatePlayer = async (
+  id: string,
+  data: WithFieldValue<Player>,
+): Promise<void> =>
+  updateDoc(doc(db, 'players', id), playerConverter.toFirestore(data))
+
+export const updateFirebasePlayer = async (
+  id: string,
+  data: Partial<FirebasePlayer>,
+): Promise<void> => updateDoc(doc(db, 'players', id), data)
 
 export const deletePlayer = (id: string): Promise<void> =>
   deleteDoc(doc(db, 'players', id))

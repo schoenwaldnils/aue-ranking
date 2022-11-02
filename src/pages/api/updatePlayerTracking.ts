@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { db } from '../../utils/firebase'
+import { updateFirebasePlayer } from '../../hooks/useDB'
 
 const baseURL = process.env.BASE_URL || 'http://localhost:3456'
 
@@ -16,10 +16,7 @@ export default async (
     `${baseURL}/api/tracking?platform=${platform}&id=${id}`,
   ).then((res) => res.json())
 
-  await db
-    .collection('players')
-    .doc(memberId)
-    .set({ trackingData: JSON.stringify(data) }, { merge: true })
+  await updateFirebasePlayer(memberId, { trackingData: JSON.stringify(data) })
 
   res.status(200).end()
 }
