@@ -14,8 +14,8 @@ import {
 import { useMemo } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
-import { FirebasePlayer, Player } from '../@types/Player'
-import { FirebaseTeam, Team } from '../@types/Team'
+import type { FirebasePlayer, Player } from '../@types/Player'
+import type { FirebaseTeam, Team } from '../@types/Team'
 import { db } from '../utils/firebase'
 import { getDataFromTracking } from '../utils/getDataFromTracking'
 

@@ -10,7 +10,7 @@ import {
   SiXbox,
 } from 'react-icons/si'
 
-import { Player } from '../../@types/Player'
+import type { Player } from '../../@types/Player'
 import { colors } from '../../data/colors'
 import { deletePlayer } from '../../hooks/useDB'
 import { PlayerForm } from '../PlayerForm'

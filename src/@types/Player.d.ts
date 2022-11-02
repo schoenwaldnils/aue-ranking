@@ -1,4 +1,4 @@
-import { TrackingData } from './TrackingData'
+import type { TrackingData } from './TrackingData'
 
 export type FirebasePlayer = {
   id: string

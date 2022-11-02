@@ -1,4 +1,4 @@
-import { UserType } from '../@types/User'
+import type { UserType } from '../@types/User'
 import { createCookie, eraseCookie, readCookie } from './cookie'
 
 export const getUserFromCookie = (): UserType => {

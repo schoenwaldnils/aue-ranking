@@ -3,7 +3,11 @@
     "jsx": "preserve",
     "esModuleInterop": true,
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -17,11 +21,22 @@
       {
         "name": "typescript-styled-plugin",
         "lint": {
-          "validProperties": ["color-scheme"]
+          "validProperties": [
+            "color-scheme"
+          ]
         }
       }
-    ]
+    ],
+    "incremental": true
   },
-  "exclude": ["node_modules", "_serverless"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.svg"]
+  "exclude": [
+    "node_modules",
+    "_serverless"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.svg"
+  ]
 }

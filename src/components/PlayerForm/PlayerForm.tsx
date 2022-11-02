@@ -11,7 +11,7 @@ import qs from 'qs'
 import { FC, useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Player } from '../../@types/Player'
+import type { Player } from '../../@types/Player'
 import { platforms } from '../../data/platforms'
 import { addPlayer, updatePlayer } from '../../hooks/useDB'
 import { Select } from '../Form'

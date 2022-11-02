@@ -1,4 +1,4 @@
-import { AppProps } from 'next/dist/next-server/lib/router/router'
+import type { AppProps } from 'next/app'
 import { ReactNode } from 'react'
 
 import { GlobalStyles } from '../components/GlobalStyles'

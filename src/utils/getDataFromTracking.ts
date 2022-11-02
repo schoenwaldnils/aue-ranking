@@ -1,5 +1,5 @@
-import { Player } from '../@types/Player'
-import { TrackingData } from '../@types/TrackingData'
+import type { Player } from '../@types/Player'
+import type { TrackingData } from '../@types/TrackingData'
 
 export const getDataFromTracking = (data: TrackingData): Partial<Player> => {
   if (!data) {

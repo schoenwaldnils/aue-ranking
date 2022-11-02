@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { FC } from 'react'
 
-import { Player } from '../../@types/Player'
+import type { Player } from '../../@types/Player'
 import { PlayersListItem, showPlaylists } from '../PlayersListItem'
 
 const PlayersListContainer = styled.div`
