@@ -26,7 +26,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "7.19.3",
+    "@babel/core": "7.20.12",
     "@contentful/forma-36-react-components": "3.100.7",
     "@emotion/react": "11.10.4",
     "@emotion/styled": "11.10.4",
